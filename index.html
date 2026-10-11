@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fion – Crypto investment platform</title>
+<link rel="icon" type="image/png" href="assets/logo.png">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--logo:url("assets/logo.png");--bg:#F1F5FF;--surf:rgba(255,255,255,.72);--surf2:#E3EAFF;--line:rgba(59,130,246,.2);--tx:#1B1B7A;--mut:#55609e;--pri:#3B82F6;--pri2:#8B5CF6;--deep:#1B1B7A;--warm:#8B5CF6;--up:#4ade80;--dn:#f87171;
+--safe-t:env(safe-area-inset-top,0px);--safe-b:env(safe-area-inset-bottom,0px);box-sizing:border-box;padding-top:var(--safe-t);padding-bottom:var(--safe-b)}
+:root[data-theme="light"]{--bg:#F1F5FF}
+.card,.strip,.pill,.sup{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 8px 30px rgba(59,130,246,.08)}
+*,*::before,*::after{box-sizing:inherit}
+html{height:auto;scroll-padding-top:var(--safe-t)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'Sora',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.5;
+background-image:radial-gradient(55% 40% at 85% 0%,rgba(139,92,246,.28),transparent 70%),radial-gradient(50% 35% at 0% 20%,rgba(96,165,250,.28),transparent 70%);background-attachment:fixed}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;letter-spacing:.5px}
+.logo i{width:38px;height:36px;background:var(--logo) center/contain no-repeat;display:block}
+.links{display:flex;gap:34px;font-size:14px;font-weight:500;color:var(--mut)}
+.links a.on{color:var(--tx)}
+.links a:hover{color:var(--tx)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--pri);color:#fff;font-weight:600;font-size:14px;padding:14px 26px;border-radius:12px;border:0;cursor:pointer;font-family:inherit}
+.btn:hover{background:#2563eb}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--tx)}
+:focus-visible{outline:2px solid var(--pri2);outline-offset:3px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:40px 0 70px}
+.pill{display:inline-flex;gap:8px;align-items:center;background:var(--surf);border:1px solid var(--line);padding:7px 14px;border-radius:8px;font-size:12px;color:var(--pri2);font-weight:600}
+h1{font-size:clamp(34px,5.2vw,56px);line-height:1.1;margin:26px 0 18px;font-weight:800;letter-spacing:-1px}
+h1 em{font-style:normal;color:var(--pri2)}
+.sub{color:var(--mut);max-width:420px;margin:0 0 28px}
+.users{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+.av{display:flex}.av span{width:42px;height:42px;border-radius:50%;border:2px solid var(--bg);margin-left:-10px;background:linear-gradient(135deg,var(--c1),var(--c2))}
+.av span:first-child{margin-left:0}
+.users b{font-size:18px;display:block;line-height:1.2}.users small{color:var(--mut)}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.play{width:30px;height:30px;border-radius:50%;border:1px solid var(--pri2);display:grid;place-items:center;font-size:10px;color:var(--pri2)}
+/* phones */
+.phones{position:relative;height:520px;display:flex;justify-content:center}
+.coin{position:absolute;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.phone{position:absolute;width:210px;background:#fff;color:#1a1030;border-radius:30px;border:6px solid #1B1B7A;padding:16px 14px;box-shadow:0 30px 60px rgba(27,27,122,.35),0 0 80px rgba(96,165,250,.35);font-size:11px}
+.p1{left:6%;top:30px;transform:rotate(-4deg)}
+.p2{right:2%;top:90px;transform:rotate(6deg);height:330px}
+.phone h4{margin:0;font-size:20px}
+.phone .row{display:flex;justify-content:space-between;align-items:center;padding:7px 0}
+.up{color:#16a34a}.dn{color:#dc2626}
+.mini{display:flex;gap:6px;margin:10px 0}.mini span{flex:1;text-align:center;padding:7px;border-radius:8px;font-weight:600;background:#f0eaff;color:#5b21b6}.mini span:first-child{background:#6d28d9;color:#fff}
+.dot{width:20px;height:20px;border-radius:50%;display:inline-grid;place-items:center;color:#fff;font-size:10px;margin-right:6px;vertical-align:middle}
+.bs{display:flex;gap:8px;margin-top:10px}.bs span{flex:1;text-align:center;padding:9px;border-radius:8px;color:#fff;font-weight:700}
+/* sections */
+section{padding:56px 0;border-top:1px solid var(--line)}
+.head{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:end;margin-bottom:34px}
+h2{font-size:clamp(26px,3.4vw,34px);line-height:1.2;margin:0;font-weight:800;letter-spacing:-.5px}
+h2 em{font-style:normal;color:var(--pri2)}
+.head p{color:var(--mut);margin:0;max-width:400px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:24px}
+.ic{width:42px;height:42px;border-radius:50%;background:var(--deep);display:grid;place-items:center;margin-bottom:18px;font-size:18px}
+.card h3{margin:0 0 6px;font-size:15px}.card p{margin:0;color:var(--mut);font-size:13px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.big{border-radius:18px;padding:28px;min-height:260px;position:relative;overflow:hidden}
+.big .n{font-size:22px;font-weight:700;margin-bottom:14px}
+.big h3{font-size:22px;margin:0 0 12px;line-height:1.25}.big p{font-size:13px;margin:0;opacity:.85;max-width:240px}
+.b1{background:var(--surf);border:1px solid var(--line)}.b1 .n{color:var(--pri2)}
+.b2{background:linear-gradient(160deg,#3B82F6,#1B1B7A);color:#fff}
+.b3{background:var(--b3);border:1px solid var(--b3b)}.b3 .n{color:var(--warm)}
+.b1 svg{position:absolute;right:0;bottom:0;width:70%}
+.ibox{position:absolute;right:22px;top:22px;width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.1);display:grid;place-items:center}
+.learn{display:inline-flex;margin-top:22px;font-weight:600;font-size:13px;gap:8px}
+.live{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.mkt{background:linear-gradient(160deg,#1B1B7A,#0f0f4d);color:#fff;border:1px solid var(--line);border-radius:20px;padding:24px}
+.mkt .top{display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.7)}
+.mkt .amt{font-size:30px;font-weight:800;margin:8px 0 0}.mkt .gain{color:var(--up);font-size:13px}
+.mkt svg{width:100%;height:150px;margin:10px 0}
+.coins{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:12px}
+.coins b{display:block}
+.live h2{margin-bottom:12px}.stars{color:#fbbf24;letter-spacing:2px}
+.live p{color:var(--mut);max-width:420px}
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0;font-size:12px;color:var(--mut)}
+.feat b{display:block;color:var(--tx);font-size:13px}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:10px}
+.strip div{font-size:12px;color:var(--mut)}.strip b{display:block;color:var(--tx);font-size:13px}
+footer{text-align:center;color:var(--mut);font-size:12px;padding:30px 0 40px}
+@media(max-width:900px){.links{display:none}.hero,.head,.live{grid-template-columns:1fr}.g4,.strip{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr}.phones{height:480px}}
+@media(max-width:520px){.g4,.strip,.feat{grid-template-columns:1fr}.phone{width:180px}}
+@media(prefers-reduced-motion:no-preference){.hero .phones{animation:rise .9s ease both}@keyframes rise{from{opacity:0;transform:translateY(24px)}}
+.p1{animation:f1 6s ease-in-out infinite}.p2{animation:f2 7s ease-in-out infinite}.c-a{animation:fc 5s ease-in-out infinite}.c-b{animation:fc 6.5s ease-in-out -2s infinite}
+.av span{animation:bob 3s ease-in-out infinite}.av span:nth-child(2){animation-delay:.3s}.av span:nth-child(3){animation-delay:.6s}.av span:nth-child(4){animation-delay:.9s}.av span:nth-child(5){animation-delay:1.2s}
+@keyframes f1{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(-2deg) translateY(-16px)}}
+@keyframes f2{0%,100%{transform:rotate(6deg) translateY(0)}50%{transform:rotate(4deg) translateY(14px)}}
+@keyframes fc{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-14px) rotate(14deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.p1 polyline,.mkt polyline{stroke-dasharray:400;stroke-dashoffset:400;animation:draw 2.5s .5s ease forwards}@keyframes draw{to{stroke-dashoffset:0}}}
+/* hover */
+.btn{transition:background .2s}
+.btn:not(.ghost)::after{content:'\2192';display:inline-block;max-width:0;margin-left:-10px;opacity:0;overflow:hidden;transform:translateX(-6px);transition:max-width .7s cubic-bezier(.4,0,.2,1),margin .7s cubic-bezier(.4,0,.2,1),opacity .6s ease,transform .7s cubic-bezier(.4,0,.2,1)}
+.btn:not(.ghost):hover::after,.btn:not(.ghost):focus-visible::after{max-width:20px;margin-left:0;opacity:1;transform:none}
+.sup-btn{transition:transform .25s,box-shadow .25s}
+.sup-btn:hover{transform:scale(1.12);box-shadow:0 14px 36px rgba(139,92,246,.6)}
+@media(prefers-reduced-motion:no-preference){.sup-btn:hover{animation:wig .7s ease}@keyframes wig{0%,100%{transform:scale(1.12) rotate(0)}25%{transform:scale(1.12) rotate(-14deg)}50%{transform:scale(1.12) rotate(12deg)}75%{transform:scale(1.12) rotate(-6deg)}}}
+#chart{height:210px;margin:10px 0}
+/* support */
+.big:hover,.big:focus-within,.big:active{border-color:#8B5CF6;box-shadow:0 0 0 3px rgba(139,92,246,.3),0 18px 40px rgba(59,130,246,.22)}
+.big{transition:border-color .35s,box-shadow .35s}.b2{border:1px solid transparent}
+.hcta{flex-wrap:nowrap}.hcta .btn{white-space:nowrap}
+@media(max-width:520px){.hcta{gap:10px}.hcta .btn{padding:13px 16px;font-size:13px}}
+nav{position:relative}
+.burger{width:46px;height:46px;border-radius:12px;border:1.5px solid var(--tx);background:var(--surf);cursor:pointer;display:grid;place-items:center;padding:0;transition:background .2s}
+.burger:hover{background:var(--surf2)}
+.burger span,.burger span::before,.burger span::after{display:block;width:20px;height:2px;background:var(--tx);border-radius:2px;position:relative;transition:transform .3s,top .3s,background .2s}
+.burger span::before,.burger span::after{content:'';position:absolute;left:0}
+.burger span::before{top:-6px}.burger span::after{top:6px}
+.burger[aria-expanded=true] span{background:transparent}
+.burger[aria-expanded=true] span::before{top:0;transform:rotate(45deg)}
+.burger[aria-expanded=true] span::after{top:0;transform:rotate(-45deg)}
+.menu{position:absolute;right:0;top:calc(100% + 4px);width:min(300px,100%);background:linear-gradient(160deg,#1B1B7A,#0f0f4d);border-radius:18px;padding:12px;box-shadow:0 20px 50px rgba(27,27,122,.35);z-index:40;display:none;flex-direction:column}
+.menu.open{display:flex;animation:tip .3s ease}
+.menu .l{padding:14px;color:#c9d3ff;font-weight:600;font-size:15px;border-radius:10px}
+.menu .l:hover{color:#fff;background:rgba(255,255,255,.08)}
+.menu .mcta{margin-top:8px;text-align:center;border:1.5px solid #fff;color:#fff;border-radius:12px;padding:14px;font-weight:700;transition:background .25s,color .25s}
+.menu .mcta:hover{background:#fff;color:#1B1B7A}
+.sup-btn{position:fixed;right:20px;bottom:calc(20px + var(--safe-b));width:60px;height:60px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--pri),var(--deep));color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(59,130,246,.5);z-index:60;display:grid;place-items:center;padding:0}
+.sup-btn svg{width:28px;height:28px;position:absolute;transition:transform .35s,opacity .25s}
+.sup-btn .i-x{opacity:0;transform:rotate(-90deg) scale(.6)}
+.sup-btn.open .i-chat{opacity:0;transform:rotate(90deg) scale(.6)}
+.sup-btn.open .i-x{opacity:1;transform:none}
+.sup-tip{position:fixed;right:20px;bottom:calc(92px + var(--safe-b));background:#fff;color:var(--deep);font-weight:700;font-size:13px;padding:10px 10px 10px 14px;border-radius:14px 14px 4px 14px;box-shadow:0 10px 30px rgba(27,27,122,.25);z-index:59;display:none;align-items:center;gap:8px;animation:tip .5s ease}
+.sup-tip.show{display:flex}.sup-tip button{background:none;border:0;color:var(--mut);font-size:18px;cursor:pointer;padding:0 4px}
+@keyframes tip{from{opacity:0;transform:translateY(10px)}}
+.sup{position:fixed;right:20px;bottom:calc(92px + var(--safe-b));width:min(360px,calc(100vw - 40px));height:min(560px,calc(100dvh - 130px));background:#fff;color:#1a1a3a;border-radius:22px;box-shadow:0 20px 60px rgba(27,27,122,.35);z-index:60;display:none;flex-direction:column;overflow:hidden}
+.sup.open{display:flex;animation:tip .3s ease}
+.v{display:none;flex:1;min-height:0;flex-direction:column}.v.on{display:flex}
+.hm{background:linear-gradient(160deg,#3B82F6,#1B1B7A 90%);color:#fff;padding:26px 20px 14px;flex:1;overflow-y:auto}
+.hm h3{font-size:30px;margin:0 0 10px}.hm p{margin:0 0 18px;opacity:.92;font-size:14px}
+.sc{background:#fff;color:#1a1a3a;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.sc h4{margin:0 0 10px;font-size:15px}
+.sc input{width:100%;border:1.5px solid #1a1a3a;border-radius:10px;padding:11px 12px;font:inherit;font-size:13px;color:#1a1a3a;background:#fff}
+.faq{list-style:none;margin:6px 0 0;padding:0}.faq button{width:100%;text-align:left;background:none;border:0;padding:9px 2px;font:inherit;font-size:13px;color:var(--deep);cursor:pointer;border-bottom:1px solid #eef1ff}
+.faq li.none{font-size:12px;color:#667;padding:8px 2px}
+.nc{display:flex;justify-content:space-between;align-items:center;width:100%;border:0;text-align:left;font:inherit;cursor:pointer;background:none;padding:0;color:#1a1a3a}
+.nc b{display:block;font-size:15px}.nc small{color:#666;font-size:12px}.nc svg{width:24px;height:24px;color:var(--pri);transition:transform .3s}.nc:hover svg{transform:translateX(4px)}
+.tabs{display:flex;border-top:1px solid #eee;background:#fff}.tabs button{flex:1;border:0;background:none;padding:14px;cursor:pointer;color:#1a1a3a}.tabs button.on{color:var(--pri)}.tabs svg{width:24px;height:24px}
+.ch-h{display:flex;align-items:center;gap:12px;background:linear-gradient(160deg,#3B82F6,#1B1B7A);color:#fff;padding:16px 18px;font-size:18px;font-weight:600}
+.ch-h button{background:none;border:0;color:#fff;cursor:pointer;padding:0;display:grid}.ch-h svg{width:22px;height:22px}
+.msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;font-size:14px}
+.row2{display:flex;gap:10px;align-items:flex-end}.av2{width:36px;height:36px;border-radius:10px;flex:none;background:#fff var(--logo) center/72% no-repeat;border:1px solid #E3EAFF}
+.nm{display:block;font-size:12px;margin-bottom:4px}.bb{background:var(--deep);color:#fff;padding:11px 14px;border-radius:14px 14px 14px 4px;max-width:230px}
+.u{align-self:flex-end;background:#E3EAFF;color:#1B1B7A;padding:10px 14px;border-radius:14px 14px 4px 14px;max-width:80%}
+.qrs{display:flex;flex-direction:column;align-items:flex-end;gap:8px}.qrs button{border:1.5px solid var(--pri);color:var(--pri);background:#fff;border-radius:12px;padding:9px 14px;font:inherit;font-size:13px;cursor:pointer;box-shadow:0 2px 8px rgba(59,130,246,.15)}.qrs button:hover{background:var(--pri);color:#fff}
+.inb{display:flex;align-items:center;gap:10px;padding:12px 14px;border-top:1px solid #eee}.inb:focus-within{box-shadow:inset 0 2px 0 var(--pri)}
+.inb input{flex:1;min-width:0;border:0;outline:0;font:inherit;font-size:14px;color:#1a1a3a;background:none}
+.inb button{background:none;border:0;padding:0;cursor:pointer;color:#1a1a3a;display:grid}.inb svg{width:22px;height:22px}
+.ft{background:linear-gradient(120deg,#1B1B7A,#0b5fbf);color:#fff;padding:56px 0 24px;margin-top:40px;font-size:15px;text-align:left}
+.ft .cols{display:grid;grid-template-columns:repeat(5,1fr);gap:32px}
+.ft h5{margin:0 0 16px;font-size:15px;letter-spacing:.5px;text-transform:uppercase}
+.ft ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.ft a{color:#c9d6ff}.ft a:hover{color:#fff;text-decoration:underline}
+.ft address{font-style:normal;color:#c9d6ff;line-height:1.7}
+.ft .bar{border-top:1px solid rgba(255,255,255,.18);margin-top:40px;padding-top:20px;font-size:12px;color:#c9d6ff}
+@media(max-width:900px){.ft .cols{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.ft .cols{grid-template-columns:1fr}}
+.ic svg,.ic img{width:22px;height:22px}.ic img{filter:invert(1)}
+.tv{display:inline-flex;align-items:center;gap:7px;color:rgba(255,255,255,.85);font-size:12px}.tv svg{width:22px;height:17px;fill:currentColor}.tv:hover{color:#fff}
+.navr{display:flex;gap:10px;align-items:center}
+.tgl{width:46px;height:46px;border-radius:12px;border:1.5px solid var(--line);background:var(--surf);color:var(--tx);cursor:pointer;display:grid;place-items:center;padding:0;transition:background .2s}
+.tgl:hover{background:var(--surf2)}.tgl svg{width:20px;height:20px}.tgl .sun{display:none}
+:root[data-theme="dark"] .tgl .moon{display:none}:root[data-theme="dark"] .tgl .sun{display:block}
+.menu{border:1px solid rgba(139,92,246,.35)}
+:root{--b3:linear-gradient(160deg,#EEE9FF,#E3EAFF);--b3b:rgba(139,92,246,.25)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0a24;--surf:rgba(255,255,255,.06);--surf2:#1c1c52;--line:rgba(139,92,246,.3);--tx:#EEF2FF;--mut:#a5b0e6;--b3:linear-gradient(160deg,#2a1a5e,#1c1c52);--b3b:rgba(139,92,246,.45);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a0a24;--surf:rgba(255,255,255,.06);--surf2:#1c1c52;--line:rgba(139,92,246,.3);--tx:#EEF2FF;--mut:#a5b0e6;--b3:linear-gradient(160deg,#2a1a5e,#1c1c52);--b3b:rgba(139,92,246,.45);color-scheme:dark}
+/* icons */
+.pill svg{width:14px;height:14px}.ibox svg{width:22px;height:22px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+ <a class="logo" href="#"><i aria-hidden="true"></i>FION</a>
+ <div class="links"><a class="on" href="#">Home</a><a href="#trust">Services</a><a href="#">About</a><a href="#">Resources ▾</a><a href="#">Pricing</a></div>
+ <div class="navr"><button class="tgl" id="tgl" aria-label="Toggle dark mode" aria-pressed="false"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.900 4.900l1.400 1.400M17.700 17.700l1.400 1.400M2 12h2M20 12h2M4.900 19.100l1.400-1.400M17.700 6.300l1.400-1.400"/></svg></button><button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span></button></div>
+ <div class="menu" id="menu">
+  <a class="l" href="#">Home</a><a class="l" href="#trust">Services</a><a class="l" href="#">About us</a><a class="l" href="#">Resources</a><a class="l" href="#">Pricing</a><a class="l" href="#" id="menuSup">Get support</a>
+  <a class="mcta" href="#">Get Started</a>
+ </div>
+</nav>
+
+<header class="hero">
+ <div>
+  <span class="pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 11V7a4 4 0 0 1 8 0v4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="4" y="11" width="16" height="10" rx="2.5" fill="currentColor"/><circle cx="12" cy="16" r="1.6" fill="#fff"/></svg>Keep your money safe</span>
+  <h1>The best crypto <em>investment platform</em> for your future.</h1>
+  <p class="sub">Invest, trade, and grow your assets with the most secure and intelligent platform.</p>
+  <div class="users"><div class="av"><span role="img" aria-label="Customer 1" style="background:url(assets/customer-1.jpg) center/cover"></span><span role="img" aria-label="Customer 2" style="background:url(assets/customer-2.jpg) center/cover"></span><span role="img" aria-label="Customer 3" style="background:url(assets/customer-3.jpg) center/cover"></span><span role="img" aria-label="Customer 4" style="background:url(assets/customer-4.jpg) center/cover"></span><span role="img" aria-label="Customer 5" style="background:url(assets/customer-5.jpg) center/cover"></span></div><div><b>250K+</b><small>Happy users</small></div></div>
+  <div class="cta hcta"><a class="btn" href="#">Get Started</a><a class="btn ghost" href="#"><span class="play">▶</span>Watch video</a></div>
+ </div>
+ <div class="phones" aria-hidden="true">
+  <div class="coin c-a" style="right:4%;top:0;width:60px;height:60px;background:#f7931a;font-size:26px">₿</div>
+  <div class="coin c-b" style="left:0;top:250px;width:64px;height:64px;background:linear-gradient(135deg,#c4b5fd,#6d28d9);font-size:26px">Ξ</div>
+  <div class="phone p1">
+   <div style="color:#7c6f9b">Total balance</div><h4>$32,850.75</h4><div class="up">+12.5% (24h)</div>
+   <div class="mini"><span>Deposit</span><span>Withdraw</span></div>
+   <div style="color:#7c6f9b">Portfolio value</div><b style="font-size:15px">$32,850.75</b>
+   <svg viewBox="0 0 160 40" width="100%"><polyline points="0,34 25,28 45,31 70,18 95,22 120,10 160,4" fill="none" stroke="#16a34a" stroke-width="2"/></svg>
+   <div style="font-weight:700;margin-top:4px">Top assets</div>
+   <div class="row"><span><i class="dot" style="background:#f7931a">₿</i>Bitcoin</span><span>$18,240</span></div>
+   <div class="row"><span><i class="dot" style="background:#627eea">Ξ</i>Ethereum</span><span>$7,540</span></div>
+   <div class="row"><span><i class="dot" style="background:#1a1030">S</i>Solana</span><span>$3,210</span></div>
+  </div>
+  <div class="phone p2">
+   <div class="row"><b>Bitcoin</b><span>BTC</span></div>
+   <h4>$66,540.80</h4><div class="up">+8.25%</div>
+   <svg viewBox="0 0 160 70" width="100%" style="margin:8px 0"><g stroke="#16a34a" stroke-width="3"><path d="M10 50v-14M30 40v-18M50 46v-16M70 30v-14M90 36v-20"/></g><g stroke="#dc2626" stroke-width="3"><path d="M20 54v-12M40 32v-12M60 40v-14M80 24v-10M100 30v-12M120 14v-10"/></g></svg>
+   <div class="mini"><span>1D</span><span style="background:#f0eaff;color:#5b21b6">1W</span><span>1Y</span></div>
+   <div class="bs"><span style="background:#6d28d9">Buy</span><span style="background:#f87171">Sell</span></div>
+   <div style="margin-top:12px;color:#7c6f9b">Market sentiment</div><b>Bullish · 76%</b>
+  </div>
+ </div>
+</header>
+
+<section id="trust">
+ <div class="head"><h2>Your <em>trusted</em> partner in cryptocurrency.</h2><p>We combine innovative technology with industry best practices to deliver a secure and seamless experience for everyone.</p></div>
+ <div class="g4">
+  <div class="card"><div class="ic" id="icSec"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.500-3.400 8-8 9-4.600-1-8-4.500-8-9V6z"/><path d="M8.500 12l2.500 2.500 4.500-5"/></svg></div><h3>Bank-grade security</h3><p>Your assets are protected with advanced encryption.</p></div>
+  <div class="card"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.500l3 3 5-6"/></svg></div><h3>Transparent &amp; reliable</h3><p>100% transparent operations and real-time audits.</p></div>
+  <div class="card"><div class="ic" id="icSup"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.500"/><rect x="17" y="14" width="4" height="6" rx="1.500"/><path d="M19 20c0 1.500-2 2-5 2"/></svg></div><h3>Always here</h3><p>24/7 support from real people, when you need it.</p></div>
+  <div class="card"><div class="ic" id="icFast"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div><h3>Fast &amp; efficient</h3><p>Instant transactions with low fees.</p></div>
+ </div>
+ <div class="g3">
+  <div class="big b1"><div class="n">01.</div><h3>Expertise at every step</h3><p>Get professional insights and personalized guidance for your investments.</p>
+   <svg viewBox="0 0 200 90"><polyline points="0,80 30,66 55,72 85,48 115,56 150,24 200,10" fill="none" stroke="#a78bfa" stroke-width="2.5"/></svg></div>
+  <div class="big b2"><div class="ibox">★</div><div class="n">02.</div><h3>Industry best practices</h3><p>We follow the highest industry standards to ensure the safety and growth of your assets.</p><a class="learn" href="#">Learn more →</a></div>
+  <div class="big b3"><div class="ibox" style="background:rgba(139,92,246,.15);color:var(--pri2)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 11V7a4 4 0 0 1 8 0v4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="4" y="11" width="16" height="10" rx="2.5" fill="currentColor"/><circle cx="12" cy="16" r="1.6" fill="#fff"/></svg></div><div class="n">03.</div><h3>Protected by insurance</h3><p>Your funds are covered by leading insurance providers for complete peace of mind.</p></div>
+ </div>
+</section>
+
+<section>
+ <div class="live">
+  <div class="mkt">
+   <div class="top"><span>Live market overview</span><a id="src" class="tv" href="https://www.tradingview.com/" target="_blank" rel="noopener"><svg viewBox="0 0 36 28" aria-hidden="true"><path d="M14 22H7V11H0V4h14v18z"/><circle cx="20" cy="8" r="4"/><path d="M28 22h-8l7.5-18h8L28 22z"/></svg>Powered by TradingView</a></div>
+   <div class="amt" id="btcP">$66,540.80</div><div class="gain" id="btcG">BTC/USD</div>
+   <div id="chart"></div>
+   <div class="coins"><div><b>Bitcoin</b>$66,540.80 <span class="up" style="color:var(--up)">+8.25%</span></div><div><b>Ethereum</b>$3,450.25 <span style="color:var(--up)">+5.65%</span></div><div><b>Solana</b>$152.25 <span style="color:var(--dn)">-2.25%</span></div></div>
+  </div>
+  <div>
+   <h2><em>Trusted</em> platform anytime &amp; anywhere.</h2>
+   <p><span class="stars">★★★★★</span> 4.8 / 5 from 15K+ reviews</p>
+   <p>Fion is a secure and innovative ecosystem of blockchain products built to help you invest, earn, and grow, anytime and anywhere.</p>
+   <div class="feat"><div><b>Decentralized &amp; secure</b>Your keys, your coins</div><div><b>Low transaction fees</b>Keep more of your gains</div><div><b>Global access</b>100+ countries</div></div>
+   <div class="cta"><a class="btn" href="#">Start investing now</a><a class="btn ghost" href="#">💬 Ask a question</a></div>
+  </div>
+ </div>
+ <div class="strip">
+  <div><b>Secure wallet</b>Multi-layer protection</div><div><b>Instant transactions</b>Powered by blockchain</div><div><b>Real-time analytics</b>Make smarter decisions</div><div><b>Multi-currency support</b>100+ cryptocurrencies</div>
+ </div>
+</section>
+</div>
+<footer class="ft"><div class="wrap">
+ <div class="cols">
+  <div><h5>Quick links</h5><ul><li><a href="https://finometra.com/register">Open Account</a></li><li><a href="https://finometra.com/login">Online Banking</a></li></ul></div>
+  <div><h5>Company</h5><ul><li><a href="https://finometra.com/">Home</a></li><li><a href="https://finometra.com/about">About Us</a></li><li><a href="https://finometra.com/faq">FAQs</a></li></ul></div>
+  <div><h5>Legal</h5><ul><li><a href="https://finometra.com/privacy-policy">Privacy Policy</a></li><li><a href="https://finometra.com/terms">Terms of Service</a></li></ul></div>
+  <div><h5>Support</h5><ul><li><a href="https://finometra.com/contact">Contact</a></li><li><a href="https://finometra.com/faq">FAQs</a></li></ul></div>
+  <div><h5>Get in touch</h5><address>801 Fiom Street, Olumbatur, VA 22904 Virginia<br><a href="https://finometra.com/#">support@fion.com</a></address></div>
+ </div>
+ <div class="bar">© 2026 Fion. Crypto investments carry risk. Invest only what you can afford to lose.</div>
+</div></footer>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<script>
+(function(){
+ var el=document.getElementById('chart');if(!el||!window.LightweightCharts)return;
+ var c=LightweightCharts.createChart(el,{width:el.clientWidth,height:210,layout:{background:{type:'solid',color:'transparent'},textColor:'rgba(255,255,255,.7)'},grid:{vertLines:{color:'rgba(255,255,255,.06)'},horzLines:{color:'rgba(255,255,255,.06)'}},rightPriceScale:{borderVisible:false},timeScale:{borderVisible:false,timeVisible:true},crosshair:{mode:0}});
+ var s=c.addCandlestickSeries({upColor:'#4ade80',downColor:'#f87171',borderVisible:false,wickUpColor:'#4ade80',wickDownColor:'#f87171'});
+ new ResizeObserver(function(){c.applyOptions({width:el.clientWidth})}).observe(el);
+ function fmt(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+ function show(d,live){s.setData(d);c.timeScale().fitContent();var f=d[0].open,l=d[d.length-1].close,p=(l-f)/f*100;
+  document.getElementById('btcP').textContent=fmt(l);var g=document.getElementById('btcG');g.textContent='BTC/USD '+(p>=0?'+':'')+p.toFixed(2)+'%'+(live?'':' · sample data');g.style.color=p>=0?'#4ade80':'#f87171';
+  }
+ function sample(){var t=Math.floor(Date.now()/3600000)*3600-71*3600,p=66000,seed=7,out=[];
+  function r(){seed=(seed*9301+49297)%233280;return seed/233280}
+  for(var i=0;i<72;i++){var o=p,cl=o+(r()-.46)*420,h=Math.max(o,cl)+r()*180,l=Math.min(o,cl)-r()*180;out.push({time:t+i*3600,open:o,high:h,low:l,close:cl});p=cl}return out}
+ function live(){fetch('https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=72').then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(k){
+  show(k.map(function(x){return{time:x[0]/1000,open:+x[1],high:+x[2],low:+x[3],close:+x[4]}}),true)}).catch(function(){})}
+ show(sample(),false);live();setInterval(live,30000);
+})();
+</script><button class="sup-btn" id="supBtn" aria-label="Open support chat" aria-expanded="false">
+ <svg class="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.4A8 8 0 1 1 21 12z"/></svg>
+ <svg class="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"><path d="M5 9l7 7 7-7"/></svg>
+</button>
+<div class="sup-tip" id="supTip">We are here! 👋<button id="tipX" aria-label="Dismiss">×</button></div>
+<div class="sup" id="sup" role="dialog" aria-label="Fion support">
+ <div class="v on" id="vHome">
+  <div class="hm"><h3>Hi there 👋</h3><p>Need help? Search our help center for answers or start a conversation:</p>
+   <div class="sc"><h4>Help Center</h4><input id="faqIn" placeholder="Search for answers" aria-label="Search for answers"><ul class="faq" id="faqL"></ul></div>
+   <div class="sc"><button class="nc" id="newC"><span><b>New Conversation</b><small>We typically reply in a few minutes</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></button></div>
+  </div>
+  <div class="tabs"><button class="on" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></button><button id="tChat" aria-label="Messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.4A8 8 0 1 1 21 12z"/></svg></button></div>
+ </div>
+ <div class="v" id="vChat">
+  <div class="ch-h"><button id="back" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>Customer Support</div>
+  <div class="msgs" id="msgs"></div>
+  <div class="inb"><input id="supIn" placeholder="Type here and press enter.." aria-label="Message"><button id="thumb" aria-label="Send thumbs up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11v9H4v-9zM7 11l4-8c1.6 0 2.600 1.100 2.300 2.700L12.800 9H19a2 2 0 0 1 2 2.300l-1.200 7A2 2 0 0 1 17.800 20H7"/></svg></button><button id="emo" aria-label="Add emoji"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.500 2 4 2 4-2 4-2M9 9.500h.01M15 9.500h.01"/></svg></button></div>
+ </div>
+</div>
+<script>
+(function(){
+ var $=function(i){return document.getElementById(i)},b=$('supBtn'),p=$('sup'),tip=$('supTip'),m=$('msgs'),inp=$('supIn'),greeted=false;
+ var FAQ=[{q:'How do I open an account?',a:'Select Get Started and follow the steps. It only takes a few minutes.'},{q:'Are my funds secure?',a:'Yes. Fion uses advanced encryption and multi-layer wallet protection.'},{q:'What are the fees?',a:'Transactions have low fees. An agent can share the full details with you.'},{q:'Which countries do you support?',a:'Fion is available in 100+ countries.'}];
+ function view(v){$('vHome').classList.toggle('on',v==='home');$('vChat').classList.toggle('on',v==='chat');if(v==='chat'){greet();inp.focus();m.scrollTop=m.scrollHeight}}
+ function openP(o){p.classList.toggle('open',o);b.classList.toggle('open',o);b.setAttribute('aria-expanded',o);tip.classList.remove('show');if(o)view('home')}
+ b.onclick=function(){openP(!p.classList.contains('open'))};
+ $('tipX').onclick=function(){tip.classList.remove('show')};
+ setTimeout(function(){if(!p.classList.contains('open'))tip.classList.add('show')},3000);
+ function user(t){var d=document.createElement('div');d.className='u';d.textContent=t;m.appendChild(d);m.scrollTop=m.scrollHeight}
+ function bot(t){var w=document.createElement('div');w.className='row2';w.innerHTML='<span class="av2"></span><div><small class="nm">Customer Support</small><div class="bb"></div></div>';w.querySelector('.bb').textContent=t;m.appendChild(w);m.scrollTop=m.scrollHeight}
+ function reply(t){setTimeout(function(){bot(t)},800)}
+ function greet(){if(greeted)return;greeted=true;bot('👋 Hi! How can we help?');var q=document.createElement('div');q.className='qrs';
+  [['I have a question','Sure, type your question below and we will help.'],['Tell me more','Fion is a secure crypto investment platform. You can invest, trade and track your assets in one place.']].forEach(function(x){var k=document.createElement('button');k.textContent=x[0];k.onclick=function(){q.remove();user(x[0]);reply(x[1])};q.appendChild(k)});m.appendChild(q)}
+ function send(t){t=(t||inp.value).trim();if(!t)return;user(t);inp.value='';reply('Thanks for reaching out. A support agent will reply here shortly.')}
+ inp.onkeydown=function(e){if(e.key==='Enter')send()};
+ $('thumb').onclick=function(){send('👍')};$('emo').onclick=function(){inp.value+='😊';inp.focus()};
+ $('newC').onclick=function(){view('chat')};$('tChat').onclick=function(){view('chat')};$('back').onclick=function(){view('home')};
+ var fi=$('faqIn'),fl=$('faqL');
+ fi.oninput=function(){var v=fi.value.trim().toLowerCase();fl.innerHTML='';if(!v)return;var r=FAQ.filter(function(f){return f.q.toLowerCase().indexOf(v)>-1});
+  if(!r.length){var li=document.createElement('li');li.className='none';li.textContent='No matches. Try starting a conversation instead.';fl.appendChild(li)}
+  r.forEach(function(f){var li=document.createElement('li'),k=document.createElement('button');k.textContent=f.q;k.onclick=function(){view('chat');user(f.q);reply(f.a);fi.value='';fl.innerHTML=''};li.appendChild(k);fl.appendChild(li)})};
+ document.addEventListener('keydown',function(e){if(e.key==='Escape'){openP(false);menu(false)}});
+ var bg=$('burger'),mn=$('menu');
+ function menu(o){mn.classList.toggle('open',o);bg.setAttribute('aria-expanded',o)}
+ bg.onclick=function(e){e.stopPropagation();menu(!mn.classList.contains('open'))};
+ mn.onclick=function(e){e.stopPropagation();if(e.target.tagName==='A')menu(false)};
+ document.addEventListener('click',function(){menu(false)});
+ $('menuSup').onclick=function(e){e.preventDefault();if(!p.classList.contains('open'))openP(true)};
+})();
+</script>
+<script>
+(function(){
+ var r=document.documentElement,mq=window.matchMedia('(prefers-color-scheme: dark)'),k='fion-theme',tg=document.getElementById('tgl');
+ function get(){try{return localStorage.getItem(k)}catch(e){return null}}
+ function set(t){r.setAttribute('data-theme',t);tg.setAttribute('aria-pressed',t==='dark');tg.setAttribute('aria-label',t==='dark'?'Switch to light mode':'Switch to dark mode')}
+ set(get()||(mq.matches?'dark':'light'));
+ var ch=function(e){if(!get())set(e.matches?'dark':'light')};
+ if(mq.addEventListener)mq.addEventListener('change',ch);else if(mq.addListener)mq.addListener(ch);
+ tg.onclick=function(){var t=r.getAttribute('data-theme')==='dark'?'light':'dark';set(t);try{if(t===(mq.matches?'dark':'light'))localStorage.removeItem(k);else localStorage.setItem(k,t)}catch(e){}};
+ var U='https://img.icons8.com/?size=100&format=png&color=000000&id=';
+ [['icSec','HKylTKuMkP1n'],['icFast','9769'],['icSup','113122']].forEach(function(x){var el=document.getElementById(x[0]),im=new Image();
+  im.onload=function(){im.alt='';el.textContent='';el.appendChild(im)};im.src=U+x[1]});
+})();
+</script>
+</body>
+</html>
