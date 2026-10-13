@@ -6,6 +6,7 @@
 <title>Login – Fion</title>
 <link rel="icon" type="image/png" href="assets/logo.png">
 <meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@400;600;700&display=swap">
 <style>
 :root{--red:#E6003D;--pur:#3B0D52;--pink:#F8E7EB;--bg:#fff;--card:#fff;--tx:#2A0A3C;--mut:#7A5C86;--line:rgba(59,13,82,.16);--field:#fff;--btn2:#F8E7EB;--pbtn:#3B0D52;--logo:url("assets/logo.png")}
@@ -91,18 +92,18 @@ div.ico{background:linear-gradient(135deg,#E6003D,#3B0D52);-webkit-mask:url("ass
 <body>
 <main class="split">
 <aside class="info" aria-label="About Fion"><i class="bl b1"></i><i class="bl b2"></i>
- <a class="ib" href="v2.html"><i aria-hidden="true"></i>FION</a>
+ <a class="ib" href="index.html"><i aria-hidden="true"></i>FION</a>
  <div><h2>Your money. Your plans. Your next move.</h2><p>A few years ago, a small team of people determined to transform banking launched a savings app for everyone. That app was the first step toward Finometra Bank. Today, we’re even more determined and we’ve built a Central Bank-licensed, microfinance bank to help you get the best out of your money without overcharging you. Finometra includes tools for tracking your spending habits, saving more and making the right money moves. So no matter who you are or where you live, we’re here because of you. We know the pain that comes with using a regular bank and we will make things work better for everyone.</p></div>
  <small>© 2026 Fion website concept.</small>
 </aside>
 <div class="wrap"><section class="card" aria-labelledby="ttl">
- <div class="top"><a class="back" id="back" href="v2.html"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Back</a><a class="brand" href="v2.html"><i aria-hidden="true"></i>FION</a></div>
+ <div class="top"><a class="back" id="back" href="index.html"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Back</a><a class="brand" href="index.html"><i aria-hidden="true"></i>FION</a></div>
  <div class="ico" id="ico" role="img" aria-label="Global money transfers"></div>
  <h1 id="ttl">Login</h1>
  <p class="note" id="note" role="status" aria-live="polite"></p>
  <div id="main">
  <form id="f" novalidate>
-  <div class="fld" id="emW"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3.500 7.500l8.500 6 8.500-6"/></svg><label class="sr" for="em">Email</label><input id="em" type="email" placeholder="Email" autocomplete="email" inputmode="email"></div>
+  <div class="fld" id="emW"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.500-6.500 8-6.500s8 2.500 8 6.500"/></svg><label class="sr" for="em">Username</label><input id="em" type="text" placeholder="Username" autocomplete="username" autocapitalize="none" spellcheck="false"></div>
   <div class="err" id="eEm"></div>
   <div class="fld" id="pwW"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="3"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><label class="sr" for="pw">Password</label><input id="pw" type="password" placeholder="Password" autocomplete="current-password"><button type="button" class="eye" id="eye" aria-label="Show password" aria-pressed="false"><svg class="e1" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.600-7 10-7 10 7 10 7-3.600 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg><svg class="e2" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M10.600 6.100A9.800 9.800 0 0 1 12 6c6.400 0 10 6 10 6a17 17 0 0 1-3.200 3.800M6.300 7.400A17 17 0 0 0 2 12s3.600 6 10 6c1.400 0 2.700-.3 3.900-.8M9.900 9.900a3 3 0 0 0 4.200 4.200"/></svg></button></div>
   <div class="err" id="ePw"></div>
@@ -115,34 +116,58 @@ div.ico{background:linear-gradient(135deg,#E6003D,#3B0D52);-webkit-mask:url("ass
  <button class="btn" type="button" data-g="1"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.500 18c1.200-2.200 3-3.200 5.500-3.200s4.300 1 5.500 3.200"/></svg>Continue As Guest</button>
  <p class="terms">By signing in, you agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</p>
  </div>
- <div class="done" id="done" role="status"><div class="ok"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></div><h2 id="dT">Signed in</h2><p>This is a simulated sign-in for the Fion website concept. No real account was accessed.</p><a class="btn pri" href="v2.html">Back to home</a></div>
+ <div class="done" id="done" role="status"><div class="ok"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></div><h2 id="dT">Signed in</h2><p>Your dashboard is ready. If it didn’t open on its own, use the button below.</p><a class="btn pri" href="dashboard.html" target="_blank" rel="noopener">Open dashboard</a></div>
 </section></div></main>
 <div id="pre" role="status" aria-label="Loading"><img src="assets/logo-spin.webp" alt="" width="96" height="96"><b>FION</b><div class="pbar"><i></i></div></div>
 <script>(function(){var p=document.getElementById('pre');setTimeout(function(){p.classList.add('done');setTimeout(function(){p.remove()},500)},1000)})();</script>
 <script>
 (function(){
+ var FDB=(function(){
+ var KEY='fion.db.v1',memDb=null;
+ function z12(){return [0,0,0,0,0,0,0,0,0,0,0,0]}
+ function seed(){return {v:1,seq:1,customers:[{id:'sparky',username:'fion-owner',name:'Sparky',email:'',phone:'',status:'active',created:'2026-01-01T00:00:00.000Z',photo:'',cred:null,balance:0,expenses:0,savings:0,chg:{bal:0,inc:0,exp:0,sav:0},goals:[{id:'g1',n:'My savings vault',saved:0,target:5000}],income:z12(),spend:z12(),tx:[]}],audit:[]}}
+ function load(){try{var t=localStorage.getItem(KEY);if(t){var d=JSON.parse(t);if(d&&d.customers)return d}}catch(e){}return memDb?JSON.parse(JSON.stringify(memDb)):seed()}
+ function save(d){memDb=JSON.parse(JSON.stringify(d));try{localStorage.setItem(KEY,JSON.stringify(d))}catch(e){}}
+ return {KEY:KEY,load:load,save:save,seed:seed,z12:z12}
+})();
+function fhex(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return ('0'+x.toString(16)).slice(-2)}).join('')}
+function funhex(h){var a=new Uint8Array(h.length/2);for(var i=0;i<a.length;i++)a[i]=parseInt(h.substr(i*2,2),16);return a}
+async function fderive(u,p,saltHex){var k=await crypto.subtle.importKey('raw',new TextEncoder().encode(u.trim().toLowerCase()+'\u0000'+p),'PBKDF2',false,['deriveBits']);return fhex(await crypto.subtle.deriveBits({name:'PBKDF2',salt:funhex(saltHex),iterations:200000,hash:'SHA-256'},k,256))}
+async function fnewCred(u,p){var s=fhex(crypto.getRandomValues(new Uint8Array(16)));return {salt:s,h:await fderive(u,p,s)}}
+
  var $=function(i){return document.getElementById(i)};
- var f=$('f'),em=$('em'),pw=$('pw'),note=$('note'),re=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+ var CRED={"salt": "5b4e47efd655d6de5c86041192bca638", "h": "d0dd3c23cb2ecd698c089373742dcc4a7d61baba1ab165c76d3154bc4ea598f1"},DASH='dashboard.html',ATT='fion.attempts',SK='fion.session';
+ var f=$('f'),em=$('em'),pw=$('pw'),note=$('note');
  function show(msg,bad){note.textContent=msg;note.className='note show'+(bad?' bad':'')}
  function hide(){note.className='note';note.textContent=''}
  function err(id,wid,msg){$(id).textContent=msg;$(wid).classList.toggle('bad',!!msg)}
  function clear(){err('eEm','emW','');err('ePw','pwW','')}
-
+ function gs(k,s){try{return(s?sessionStorage:localStorage).getItem(k)}catch(e){return null}}
+ function ss(k,v,sess){try{(sess?sessionStorage:localStorage).setItem(k,v)}catch(e){if(sess)window.name='fion:'+k+'='+v}}
+ function locked(){var a=JSON.parse(gs(ATT)||'{"n":0,"t":0}');return a.t>Date.now()?Math.ceil((a.t-Date.now())/1000):0}
+ function miss(){var a=JSON.parse(gs(ATT)||'{"n":0,"t":0}');a.n++;if(a.n>=5){a.t=Date.now()+30000;a.n=0}ss(ATT,JSON.stringify(a))}
+ async function authenticate(u,p){var db=FDB.load(),key=u.trim().toLowerCase(),c=null;db.customers.forEach(function(x){if(x.username.toLowerCase()===key)c=x});
+  var cred=c?(c.cred||(c.id==='sparky'?CRED:null)):null;var h=await fderive(u,p,(cred||CRED).salt);return {ok:!!cred&&h===cred.h,c:c}}
+ var pm=gs('fion.msg',true)||((window.name||'').match(/fion:fion\.msg=([^;]*)/)||[])[1];
+ if(pm){show(decodeURIComponent(pm),true);try{sessionStorage.removeItem('fion.msg')}catch(e){}if(window.name.indexOf('fion:fion.msg')===0)window.name=''}
  $('eye').onclick=function(){var on=pw.type==='password';pw.type=on?'text':'password';this.classList.toggle('on',on);this.setAttribute('aria-pressed',on);this.setAttribute('aria-label',on?'Hide password':'Show password')};
  [em,pw].forEach(function(i){i.addEventListener('input',function(){clear();hide()})});
  function finish(t){$('main').style.display='none';$('ttl').style.display='none';$('ico').style.display='none';$('dT').textContent=t;$('done').classList.add('show');hide()}
- f.addEventListener('submit',function(e){e.preventDefault();clear();hide();var ok=true;
-  if(!re.test(em.value.trim())){err('eEm','emW','Enter a valid email address.');ok=false}
+ f.addEventListener('submit',async function(e){e.preventDefault();clear();hide();var ok=true;
+  if(!em.value.trim()){err('eEm','emW','Enter your username.');ok=false}
   if(pw.value.length<8){err('ePw','pwW','Password must be at least 8 characters.');ok=false}
-  
   if(!ok){(document.querySelector('.fld.bad input')||em).focus();return}
+  if(!(window.crypto&&crypto.subtle)){show('Secure sign-in needs HTTPS. Open this page over https:// or localhost.',true);return}
+  var l=locked();if(l){show('Too many attempts. Try again in '+l+' seconds.',true);return}
   var b=$('go');b.disabled=true;b.innerHTML='<span class="sp" aria-hidden="true"></span><span>Signing in…</span>';
-  setTimeout(function(){finish('Signed in')},1200)});
- $('fg').onclick=function(e){e.preventDefault();if(!re.test(em.value.trim())){err('eEm','emW','Enter your email first, then select Forgot Password.');em.focus();return}show('If this were a live service, a reset link would be sent to '+em.value.trim()+'.')};
- $('back').addEventListener('click',function(e){if(document.referrer&&history.length>1&&document.referrer.indexOf(location.origin)===0){e.preventDefault();history.back()}});
+  var r={ok:false};try{r=await authenticate(em.value,pw.value)}catch(x){}
+  if(r.ok&&r.c.status==='blocked'){b.disabled=false;b.innerHTML='<span>Login</span>';show('This account has been blocked. Please contact support.',true);return}
+  if(r.ok){ss(SK,'customer:'+r.c.id,true);ss(ATT,'{"n":0,"t":0}');window.location.assign(DASH);setTimeout(function(){finish('Signed in')},2500);return}
+  miss();b.disabled=false;b.innerHTML='<span>Login</span>';err('ePw','pwW','Username or password is incorrect.');pw.value='';pw.focus()});
+ $('fg').onclick=function(e){e.preventDefault();show('Password reset will be available once the backend is connected.')};
 
  Array.prototype.forEach.call(document.querySelectorAll('[data-s]'),function(b){b.onclick=function(){show(b.getAttribute('data-s')+' sign-in is not connected in this website concept.',true)}});
- document.querySelector('[data-g]').onclick=function(){finish('Welcome')};
+ document.querySelector('[data-g]').onclick=function(){show('Guest access isn’t available yet.',true)};
 })();
 </script>
 </body>

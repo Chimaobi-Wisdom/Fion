@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin console – Fion</title>
+<link rel="icon" type="image/png" href="assets/logo.png">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@400;600;700&display=swap">
+<style>:root{--red:#E6003D;--pur:#3B0D52;--pink:#F8E7EB;--bg:#F5F0F4;--panel:#fff;--panel2:#F8E7EB;--tx:#2A0A3C;--mut:#7A5C86;--line:rgba(59,13,82,.1);--ok:#16a34a;--bad:#d4183d;--warn:#b45309;--field:#fff;--shadow:0 8px 24px rgba(59,13,82,.06);--logo:url("assets/logo.png")}
+@media(prefers-color-scheme:dark){:root{--bg:#0e0314;--panel:#1b0a26;--panel2:#2a1138;--tx:#fbeaf0;--mut:#c9a9bd;--line:rgba(255,255,255,.1);--ok:#4ade80;--bad:#ff7a95;--warn:#fbbf24;--field:rgba(255,255,255,.06);--shadow:none;color-scheme:dark}}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--tx);font:14px/1.5 'Inter',system-ui,-apple-system,'Segoe UI',sans-serif}
+a{color:inherit}button{font:inherit;color:inherit}
+h1,h2,h3,h4{font-family:'Sora','Inter',sans-serif;margin:0}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+svg.i{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.gate{min-height:100vh;display:grid;place-items:center;padding:24px}
+.gcard{width:100%;max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:28px;padding:32px 28px;box-shadow:var(--shadow)}
+.brand{display:flex;align-items:center;gap:10px;font:700 19px 'Sora',sans-serif;letter-spacing:.5px}
+.brand i{width:32px;height:30px;background:linear-gradient(135deg,#E6003D,#7B2CBF);-webkit-mask:var(--logo) center/contain no-repeat;mask:var(--logo) center/contain no-repeat}
+.gcard .brand{margin-bottom:24px}.gcard h1{font-size:24px;margin-bottom:6px}.gcard p.s{color:var(--mut);margin:0 0 22px}
+.btn{height:42px;padding:0 18px;border-radius:12px;border:0;font-weight:600;font-size:13.5px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--panel2);color:var(--tx);transition:transform .2s,opacity .2s,box-shadow .2s;text-decoration:none;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)}.btn.pri{background:var(--red);color:#fff;box-shadow:0 6px 16px rgba(230,0,61,.25)}.btn.dark{background:var(--pur);color:#fff}.btn.ghost{background:transparent;border:1px solid var(--line)}.btn.danger{background:rgba(212,24,61,.12);color:var(--bad)}.btn.sm{height:34px;padding:0 12px;font-size:12.5px;border-radius:10px}.btn.full{width:100%}
+.btn[disabled],.btn.off{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+/* layout */
+.shell{display:grid;grid-template-columns:268px minmax(0,1fr);min-height:100vh}
+.side{position:sticky;top:0;height:100vh;background:#1c0a28;color:#e9cfe0;padding:22px 16px;display:flex;flex-direction:column;gap:4px;overflow:auto}
+.side .brand{color:#fff;margin:0 8px 22px}.side .brand i{background:#fff}
+.side h6{margin:16px 12px 6px;font:500 11px 'Inter';letter-spacing:.7px;text-transform:uppercase;color:#a98fb4}
+.nv{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;border:0;background:none;color:inherit;cursor:pointer;text-align:left;font-weight:500;font-size:13.5px;text-decoration:none;transition:background .2s,color .2s}
+.nv:hover{background:rgba(255,255,255,.07);color:#fff}.nv.on{background:rgba(230,0,61,.22);color:#fff}
+.spacer{flex:1}
+.who{background:rgba(255,255,255,.07);border-radius:14px;padding:12px;font-size:12.5px;margin-bottom:8px}.who b{display:block;color:#fff}
+.main{padding:24px 30px 60px;min-width:0}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.bar h1{font-size:25px;letter-spacing:-.4px}.bar p{margin:3px 0 0;color:var(--mut)}
+.burger{display:none}
+.notice{display:flex;gap:10px;align-items:center;background:rgba(180,83,9,.1);border:1px solid rgba(180,83,9,.25);color:var(--warn);border-radius:12px;padding:9px 14px;font-size:12.5px;margin-bottom:18px}
+.notice.ro{background:rgba(122,92,134,.12);border-color:var(--line);color:var(--mut)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow);min-width:0}
+.card h3{font-size:15px;margin-bottom:12px;font-weight:600}
+.ch{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}.ch h3{margin:0}
+.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.kpi span{color:var(--mut);font-size:12.5px}.kpi b{display:block;font:600 26px 'Sora',sans-serif;letter-spacing:-.5px;margin:4px 0 2px}.kpi small{color:var(--mut)}
+.tag{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:3px 10px;font-size:11.5px;font-weight:600;background:var(--panel2);color:var(--mut)}
+.tag.ok{background:rgba(22,163,74,.13);color:var(--ok)}.tag.bad{background:rgba(212,24,61,.12);color:var(--bad)}.tag.warn{background:rgba(180,83,9,.13);color:var(--warn)}
+.tw{overflow-x:auto;margin:0 -6px;padding:0 6px}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th{text-align:left;font-weight:500;font-size:12px;color:var(--mut);padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:middle}tr:last-child td{border-bottom:0}
+tbody tr.row{cursor:pointer}tbody tr.row:hover td{background:var(--panel2)}
+.num{text-align:right;font-variant-numeric:tabular-nums}.plus{color:var(--ok);font-weight:600}.minus{color:var(--bad);font-weight:600}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#E6003D,#7B2CBF) center/cover;color:#fff;display:inline-grid;place-items:center;font:700 12px 'Sora';flex:none;vertical-align:middle}.av.lg{width:76px;height:76px;font-size:22px}
+.cell{display:flex;align-items:center;gap:12px}.cell b{display:block;font-weight:600}.cell small{color:var(--mut)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.in,select.in,textarea.in{height:40px;border-radius:11px;border:1.5px solid var(--line);background:var(--field);color:var(--tx);padding:0 12px;font:inherit;outline:0;width:100%}textarea.in{height:auto;padding:10px 12px;resize:vertical;min-height:70px}.in:focus{border-color:var(--red)}
+.tools .in{width:auto;min-width:150px}.tools .grow{flex:1;min-width:200px}
+.lb{display:block;font-size:12px;color:var(--mut);margin:0 0 5px 3px}
+.f{margin-bottom:12px}.f2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hint{color:var(--mut);font-size:12px;margin-top:4px}.err{color:var(--bad);font-size:12.5px;margin:6px 0 0}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:16px;overflow-x:auto}.tabs a{padding:10px 14px;text-decoration:none;color:var(--mut);font-weight:500;border-bottom:2px solid transparent;white-space:nowrap}.tabs a.on{color:var(--red);border-color:var(--red)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.step{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:14px;background:var(--panel);border:1px solid var(--line);font-size:12.5px;color:var(--mut)}.step i{width:24px;height:24px;border-radius:50%;background:var(--panel2);display:grid;place-items:center;font-style:normal;font-weight:700;flex:none}
+.step.on{border-color:var(--red);color:var(--tx)}.step.on i,.step.done i{background:var(--red);color:#fff}.step.done{color:var(--tx)}
+.how{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.how div{background:var(--panel2);border-radius:14px;padding:12px 14px;font-size:13px}.how b{display:block;color:var(--red);font:700 12px 'Sora';margin-bottom:2px}
+.bars{display:grid;gap:10px}.brow{display:grid;grid-template-columns:110px 1fr 90px;gap:10px;align-items:center;font-size:12.5px}.brow .tr{height:10px;border-radius:10px;background:var(--panel2);overflow:hidden}.brow .tr i{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,#E6003D,#7B2CBF)}
+.cols{display:flex;align-items:flex-end;gap:8px;height:150px;padding-top:10px;border-bottom:1px solid var(--line)}.cols div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;position:relative}.cols i{width:70%;max-width:22px;min-height:2px;border-radius:6px 6px 0 0;background:linear-gradient(#FF4D7A,#E6003D)}.cols span{position:absolute;bottom:-20px;font-size:10.5px;color:var(--mut)}.cols em{font-style:normal;font-size:10.5px;color:var(--mut);margin-bottom:3px}
+.donut{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;flex:none}.donut b{width:78px;height:78px;border-radius:50%;background:var(--panel);display:grid;place-items:center;font:600 20px 'Sora'}
+.empty{text-align:center;color:var(--mut);padding:30px 10px}.empty b{display:block;color:var(--tx);margin-bottom:4px}
+.matrix td,.matrix th{text-align:center}.matrix td:first-child,.matrix th:first-child{text-align:left}.yes{color:var(--ok);font-weight:700}.no{color:var(--mut)}
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:16px}
+.mbg{position:absolute;inset:0;background:rgba(20,4,30,.6);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.mp{position:relative;width:100%;max-width:480px;max-height:92vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 30px 70px rgba(0,0,0,.4)}
+.mp h3{font-size:18px;margin-bottom:14px}.mp .acts{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+.crop{display:grid;place-items:center;gap:14px}.crop canvas{width:260px;height:260px;border-radius:50%;background:var(--panel2);touch-action:none;cursor:grab;box-shadow:0 0 0 3px var(--red)}
+.pw{display:flex;gap:8px}.pw .in{flex:1}
+.secret{font:600 15px ui-monospace,Menlo,Consolas,monospace;background:var(--panel2);border-radius:12px;padding:12px 14px;word-break:break-all;user-select:all}
+.toast{position:fixed;left:50%;bottom:28px;translate:-50% 20px;background:#1c0a28;color:#fff;border-radius:99px;padding:11px 20px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .3s,translate .3s;z-index:120;max-width:90vw;text-align:center}.toast.show{opacity:1;translate:-50% 0}
+@media(max-width:1100px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.how,.steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){
+ .shell{display:block}.side{position:fixed;left:0;top:0;bottom:0;width:280px;z-index:90;transform:translateX(-100%);transition:transform .3s}.side.open{transform:none}
+ .sbg2{position:fixed;inset:0;background:rgba(20,4,30,.5);z-index:85}
+ .main{padding:16px 14px 50px}.burger{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--panel);cursor:pointer}
+ .g3,.g2{grid-template-columns:1fr}.f2{grid-template-columns:1fr}.brow{grid-template-columns:90px 1fr 80px}
+}
+@media(max-width:560px){.g4,.how,.steps{grid-template-columns:1fr}.bar h1{font-size:21px}}
+@media(prefers-reduced-motion:no-preference){.view>*{animation:up .5s cubic-bezier(.2,.7,.2,1) both}.view>*:nth-child(2){animation-delay:.05s}.view>*:nth-child(3){animation-delay:.1s}.view>*:nth-child(4){animation-delay:.15s}@keyframes up{from{opacity:0;transform:translateY(12px)}}}
+</style>
+</head>
+<body>
+<section class="gate" id="gate" hidden><div class="gcard"><div class="brand"><i aria-hidden="true"></i>FION Admin</div><h1>Please sign in</h1><p class="s" id="gS">Your session has ended.</p><a class="btn pri full" href="manager-login.html">Go to admin login</a></div></section>
+<div class="shell" id="app" hidden>
+ <aside class="side" id="side" aria-label="Admin navigation"><div class="brand"><i aria-hidden="true"></i>FION Admin</div><h6>Manage</h6><nav id="nav"></nav><div class="spacer"></div><div class="who" id="who"></div><button class="nv" id="out"><i data-i="out"></i>Log out</button></aside>
+ <main class="main">
+  <div class="tools" style="margin-bottom:12px"><button class="burger" id="burger" aria-label="Open menu"><i data-i="menu"></i></button></div>
+  <div class="notice ro" id="ro" hidden>Your role is read-only. You can view everything but not make changes.</div>
+  <div id="view"></div>
+  <p class="hint" style="margin-top:28px">In the live version every admin change needs server-side authorization, validation and audit logs (Next.js + TypeScript + PostgreSQL). This prototype keeps its data in your browser.</p>
+ </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>(function(){'use strict';
+var FDB=(function(){
+ var KEY='fion.db.v1',memDb=null;
+ function z12(){return [0,0,0,0,0,0,0,0,0,0,0,0]}
+ function seed(){return {v:1,seq:1,customers:[{id:'sparky',username:'fion-owner',name:'Sparky',email:'',phone:'',status:'active',created:'2026-01-01T00:00:00.000Z',photo:'',cred:null,balance:0,expenses:0,savings:0,chg:{bal:0,inc:0,exp:0,sav:0},goals:[{id:'g1',n:'My savings vault',saved:0,target:5000}],income:z12(),spend:z12(),tx:[]}],audit:[]}}
+ function load(){try{var t=localStorage.getItem(KEY);if(t){var d=JSON.parse(t);if(d&&d.customers)return d}}catch(e){}return memDb?JSON.parse(JSON.stringify(memDb)):seed()}
+ function save(d){memDb=JSON.parse(JSON.stringify(d));try{localStorage.setItem(KEY,JSON.stringify(d))}catch(e){}}
+ return {KEY:KEY,load:load,save:save,seed:seed,z12:z12}
+})();
+function fhex(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return ('0'+x.toString(16)).slice(-2)}).join('')}
+function funhex(h){var a=new Uint8Array(h.length/2);for(var i=0;i<a.length;i++)a[i]=parseInt(h.substr(i*2,2),16);return a}
+async function fderive(u,p,saltHex){var k=await crypto.subtle.importKey('raw',new TextEncoder().encode(u.trim().toLowerCase()+'\u0000'+p),'PBKDF2',false,['deriveBits']);return fhex(await crypto.subtle.deriveBits({name:'PBKDF2',salt:funhex(saltHex),iterations:200000,hash:'SHA-256'},k,256))}
+async function fnewCred(u,p){var s=fhex(crypto.getRandomValues(new Uint8Array(16)));return {salt:s,h:await fderive(u,p,s)}}
+
+const ADMINS=[{"role": "super", "salt": "9a414398c57640e988a9adaab6b8b223", "h": "f6f96156d71d85e190f9adcd820ab0e61c07b0067ee87bbf6a2d0511debe4739"}, {"role": "support", "salt": "84867b5840af71ca21a424ff189e5957", "h": "c1222a8ef05a3fdb24b7a8573957b9e10a4b281ddb4c423f5a3a70ab8849cc2c"}],LOGIN_URL='manager-login.html',IDLE=15*60*1000,SK='fion.admin';
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const gbp=n=>'£'+Number(n||0).toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
+const dtm=iso=>new Date(iso).toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+const dday=s=>{const d=new Date(s+'T00:00:00');return isNaN(d)?s:d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})};
+const today=()=>new Date().toISOString().slice(0,10);
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const IC={grid:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>',users:'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6.500 7-6.500s7 2.500 7 6.500M17 4a4 4 0 0 1 0 8M22 21c0-3-2-5-5-5.800"/>',swap:'<path d="M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4"/>',target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.500" fill="currentColor"/>',lock:'<rect x="5" y="11" width="14" height="10" rx="3"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',shield:'<path d="M12 3l8 3v6c0 4.500-3.400 8-8 9-4.600-1-8-4.500-8-9V6z"/><path d="M8.500 12l2.500 2.500 4.500-5"/>',bars:'<path d="M5 21V10M12 21V4M19 21v-7"/>',out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',plus:'<path d="M12 5v14M5 12h14"/>',dl:'<path d="M12 3v12M7 10l5 5 5-5M4 21h16"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>'};
+const ic=n=>`<svg class="i" viewBox="0 0 24 24">${IC[n]}</svg>`;
+let DB=FDB.load(),S=null,idleT=0;
+/* ---- session ---- */
+const wnGet=()=>{const m=(window.name||'').match(/fion:fion\.admin=([^;]*)/);return m?decodeURIComponent(m[1]):null};
+const sget=()=>{try{return sessionStorage.getItem(SK)}catch(e){return wnGet()}};
+const sdel=()=>{try{sessionStorage.removeItem(SK)}catch(e){}if(wnGet())window.name=''};
+function loginRedirect(msg){sdel();if(msg){try{sessionStorage.setItem('fion.msg',msg)}catch(e){window.name='fion:msg='+encodeURIComponent(msg)}}
+ if(window.__FION_EMBED){location.reload();return}
+ if(/^https?:/.test(LOGIN_URL)){$('#app').hidden=true;$('#gate').hidden=false;$('#gS').textContent=msg||'Your session has ended.';return}
+ location.replace(LOGIN_URL)}
+const can=()=>S&&S.role==='super';
+const roleLabel=r=>r==='super'?'Super admin':'Support (read-only)';
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2800)}
+const save=()=>FDB.save(DB);
+function log(action,target,detail){DB.audit.unshift({id:'a'+(DB.seq++),ts:new Date().toISOString(),actor:S.u,role:S.role,action,target,detail});save()}
+const ref=pfx=>pfx+'-'+Array.from(crypto.getRandomValues(new Uint8Array(5))).map(b=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[b%32]).join('');
+const byId=id=>DB.customers.find(c=>c.id===id);
+const initials=n=>(n||'?').split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
+const avatar=(c,lg)=>`<span class="av${lg?' lg':''}" style="${c.photo?`background-image:url(${c.photo})`:''}">${c.photo?'':esc(initials(c.name))}</span>`;
+const stag=s=>`<span class="tag ${s==='active'?'ok':'bad'}">${s==='active'?'Active':'Blocked'}</span>`;
+const ttag=s=>`<span class="tag ${s==='Success'?'ok':s==='Failed'?'bad':'warn'}">${esc(s)}</span>`;
+const genPw=()=>{const L='abcdefghjkmnpqrstuvwxyz',U='ABCDEFGHJKLMNPQRSTUVWXYZ',N='23456789',all=L+U+N,r=crypto.getRandomValues(new Uint8Array(20));const ch=Array.from({length:14},(_,i)=>all[r[i]%all.length]);ch[r[14]%14]=L[r[15]%L.length];let j=(r[14]+5)%14;ch[j]=U[r[16]%U.length];let k=(j+4)%14;ch[k]=N[r[17]%N.length];return ch.join('')};
+const csv=(rows,name)=>{const t=rows.map(r=>r.map(c=>'"'+String(c==null?'':c).replace(/"/g,'""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/csv'}));a.download=name;document.body.appendChild(a);a.click();a.remove()};
+const dis=()=>can()?'':' disabled title="Your role is read-only"';
+/* ---- modal ---- */
+function modal(title,body,opt={}){const m=document.createElement('div');m.className='modal';m.innerHTML=`<div class="mbg"></div><form class="mp" novalidate role="dialog" aria-modal="true" aria-label="${esc(title)}"><h3>${esc(title)}</h3><div class="mb">${body}</div><p class="err" hidden></p>${opt.noActions?'':`<div class="acts"><button type="button" class="btn ghost" data-x>Cancel</button><button class="btn ${opt.danger?'danger':'pri'}" type="submit">${esc(opt.submit||'Save')}</button></div>`}</form>`;
+ document.body.appendChild(m);const f=$('form',m),er=$('.err',m);const close=()=>m.remove();$('.mbg',m).onclick=close;$$('[data-x]',m).forEach(b=>b.onclick=close);
+ f.addEventListener('submit',async e=>{e.preventDefault();er.hidden=true;const btn=$('button[type=submit]',f);if(btn)btn.disabled=true;let msg=null;try{msg=await opt.onSubmit(Object.fromEntries(new FormData(f)),close,m)}catch(x){msg='Something went wrong. Try again.'}
+  if(btn)btn.disabled=false;if(msg){er.textContent=msg;er.hidden=false}else if(opt.autoClose!==false)close()});
+ const first=$('input,select,textarea',m);if(first)first.focus();return {m,close,f}}
+async function checkPw(pw){if(!pw)return false;const a=ADMINS[S.idx];return (await fderive(S.u,pw,a.salt))===a.h}
+const pwField=`<div class="f"><label class="lb" for="apw">Confirm with your admin password</label><input class="in" id="apw" name="apw" type="password" autocomplete="current-password"><p class="hint">Extra check for sensitive actions.</p></div>`;
+const need=()=>{if(!can()){toast('Your role is read-only.');return false}return true};
+/* ---- cropper ---- */
+function cropper(file,done){if(!/^image\//.test(file.type)){toast('Choose an image file.');return}if(file.size>6e6){toast('Image is too large (max 6 MB).');return}
+ const url=URL.createObjectURL(file),img=new Image();img.onload=()=>{const {m,close}=modal('Crop photo',`<div class="crop"><canvas width="520" height="520" id="cv"></canvas><input type="range" id="zm" min="1" max="3" step="0.01" value="1" aria-label="Zoom" style="width:260px"><p class="hint">Drag to reposition, use the slider to zoom.</p></div>`,{submit:'Use photo',autoClose:false,onSubmit:async(_,cl)=>{const o=document.createElement('canvas');o.width=o.height=256;o.getContext('2d').drawImage(cv,0,0,256,256);done(o.toDataURL('image/jpeg',.86));URL.revokeObjectURL(url);cl();return null}});
+  const cv=$('#cv',m),x=cv.getContext('2d'),zm=$('#zm',m);let ox=0,oy=0,k=1;const base=Math.max(520/img.width,520/img.height);
+  const draw=()=>{const s=base*k,w=img.width*s,h=img.height*s;ox=Math.min(0,Math.max(520-w,ox));oy=Math.min(0,Math.max(520-h,oy));x.fillStyle='#fff';x.fillRect(0,0,520,520);x.drawImage(img,ox,oy,w,h)};
+  ox=(520-img.width*base)/2;oy=(520-img.height*base)/2;draw();
+  zm.oninput=()=>{const c=260,old=base*k;k=+zm.value;const s=base*k;ox=c-(c-ox)*s/old;oy=c-(c-oy)*s/old;draw()};
+  let drag=null;cv.onpointerdown=e=>{drag={x:e.clientX,y:e.clientY,ox,oy};cv.setPointerCapture(e.pointerId);cv.style.cursor='grabbing'};cv.onpointermove=e=>{if(!drag)return;const r=520/cv.clientWidth;ox=drag.ox+(e.clientX-drag.x)*r;oy=drag.oy+(e.clientY-drag.y)*r;draw()};cv.onpointerup=()=>{drag=null;cv.style.cursor='grab'}};
+ img.onerror=()=>toast('That image could not be read.');img.src=url}
+/* ---- views ---- */
+const NAV=[['overview','Overview','grid'],['customers','Customer accounts','users'],['transactions','Transactions','swap'],['vaults','Savings vaults','target'],['access','Access control','lock'],['security','Security & roles','shield'],['audit','Audit & reports','bars']];
+const kpi=(l,v,s)=>`<div class="card kpi"><span>${l}</span><b>${v}</b><small>${s||''}</small></div>`;
+const allTx=()=>DB.customers.flatMap(c=>c.tx.map(t=>({...t,cid:c.id,cname:c.name,cuser:c.username})));
+function bar(title,sub,right){return `<div class="bar"><div><h1>${title}</h1>${sub?`<p>${sub}</p>`:''}</div><div class="tools">${right||''}</div></div>`}
+function vOverview(){const cs=DB.customers,act=cs.filter(c=>c.status==='active').length,tot=cs.reduce((a,c)=>a+c.balance,0),mo=new Date().getMonth(),n=allTx().filter(t=>new Date(t.date+'T00:00:00').getMonth()===mo).length;
+ return bar('Overview','A quick look at customers, balances and activity.',`<button class="btn pri" data-a="newcust"${dis()}>${ic('plus')}New customer</button>`)+
+ `<div class="grid g4">${kpi('Customers',cs.length,'accounts in total')}${kpi('Active',act,cs.length-act+' blocked')}${kpi('Total demo balance',gbp(tot),'simulated GBP')}${kpi('Transactions this month',n,MON[mo])}</div>
+ <div class="card" style="margin-top:16px"><div class="ch"><h3>How it works</h3></div><div class="how"><div><b>1</b>Create customer</div><div><b>2</b>Add photo &amp; details</div><div><b>3</b>Set access &amp; GBP balance</div><div><b>4</b>Review activity</div></div></div>
+ <div class="card" style="margin-top:16px"><div class="ch"><h3>Recent admin activity</h3><a class="btn sm ghost" href="#/audit">View all</a></div>${auditTable(DB.audit.slice(0,6))}</div>`}
+function custTable(list){if(!list.length)return '<div class="empty"><b>No customers found</b>Try a different search or create a new customer.</div>';
+ return `<div class="tw"><table><thead><tr><th>Customer</th><th>Username</th><th>Email</th><th>Status</th><th class="num">Balance</th><th>Created</th></tr></thead><tbody>${list.map(c=>`<tr class="row" data-go="#/customers/${c.id}"><td><div class="cell">${avatar(c)}<span><b>${esc(c.name)}</b></span></div></td><td>@${esc(c.username)}</td><td>${esc(c.email||'—')}</td><td>${stag(c.status)}</td><td class="num">${gbp(c.balance)}</td><td>${dday(c.created.slice(0,10))}</td></tr>`).join('')}</tbody></table></div>`}
+let CF={q:'',s:'all'};
+function vCustomers(){const list=DB.customers.filter(c=>(CF.s==='all'||c.status===CF.s)&&(!CF.q||(c.name+' '+c.username+' '+c.email+' '+c.phone).toLowerCase().includes(CF.q.toLowerCase())));
+ return bar('Customer accounts','Create, find, edit and manage customer profiles and account details.',`<button class="btn pri" data-a="newcust"${dis()}>${ic('plus')}New customer</button>`)+
+ `<div class="card"><div class="tools" style="margin-bottom:14px"><input class="in grow" id="cq" type="search" placeholder="Search name, username, email or phone" value="${esc(CF.q)}"><select class="in" id="cs"><option value="all">All statuses</option><option value="active"${CF.s==='active'?' selected':''}>Active</option><option value="blocked"${CF.s==='blocked'?' selected':''}>Blocked</option></select></div><div id="ctab">${custTable(list)}</div></div>`}
+/* wizard */
+let W=null;
+const wInit=()=>({step:1,u:'',pw:genPw(),em:'',nm:'',ph:'',photo:'',status:'active',bal:'',reason:'Opening balance'});
+function vNew(){if(!W)W=wInit();const names=['Create customer','Add photo & details','Set access & GBP balance','Review'];
+ const hd=`<div class="steps">${names.map((n,i)=>`<div class="step ${W.step===i+1?'on':W.step>i+1?'done':''}"><i>${i+1}</i>${n}</div>`).join('')}</div>`;let b='';
+ if(W.step===1)b=`<div class="f"><label class="lb" for="w_u">Username</label><input class="in" id="w_u" value="${esc(W.u)}" autocomplete="off" autocapitalize="none" placeholder="e.g. ada.obi"><p class="hint">3–24 characters: letters, numbers, dot, dash or underscore.</p></div><div class="f"><label class="lb" for="w_pw">Temporary password</label><div class="pw"><input class="in" id="w_pw" value="${esc(W.pw)}" autocomplete="off"><button type="button" class="btn ghost" data-a="genpw">Generate</button></div><p class="hint">Shown once after creation. At least 10 characters with upper case, lower case and a number.</p></div><div class="f"><label class="lb" for="w_em">Email</label><input class="in" id="w_em" type="email" value="${esc(W.em)}" placeholder="name@example.com"></div>`;
+ if(W.step===2)b=`<div class="cell" style="margin-bottom:16px">${avatar({photo:W.photo,name:W.nm||'?'},true)}<span><button type="button" class="btn ghost sm" data-a="pickphoto">${W.photo?'Change photo':'Upload photo'}</button>${W.photo?' <button type="button" class="btn ghost sm" data-a="rmphoto">Remove</button>':''}<p class="hint">JPG or PNG, cropped to a square.</p></span></div><input type="file" id="w_f" accept="image/*" hidden><div class="f"><label class="lb" for="w_nm">Full name</label><input class="in" id="w_nm" value="${esc(W.nm)}" autocomplete="off"></div><div class="f"><label class="lb" for="w_ph">Phone (optional)</label><input class="in" id="w_ph" value="${esc(W.ph)}" inputmode="tel"></div>`;
+ if(W.step===3)b=`<div class="f2"><div class="f"><label class="lb" for="w_st">Access</label><select class="in" id="w_st"><option value="active"${W.status==='active'?' selected':''}>Active</option><option value="blocked"${W.status==='blocked'?' selected':''}>Blocked</option></select></div><div class="f"><label class="lb" for="w_bal">Opening balance (£, fictional)</label><input class="in" id="w_bal" type="number" min="0" step="0.01" value="${esc(W.bal)}" placeholder="0.00"></div></div><div class="f"><label class="lb" for="w_rs">Reason (recorded with the opening transaction)</label><input class="in" id="w_rs" value="${esc(W.reason)}"></div>`;
+ if(W.step===4)b=`<div class="cell" style="margin-bottom:14px">${avatar({photo:W.photo,name:W.nm},true)}<span><b style="font-size:17px">${esc(W.nm)}</b><small>@${esc(W.u)} · ${esc(W.em)}</small></span></div><table style="min-width:0"><tbody><tr><td>Access</td><td>${stag(W.status)}</td></tr><tr><td>Phone</td><td>${esc(W.ph||'—')}</td></tr><tr><td>Opening balance</td><td>${gbp(+W.bal||0)}</td></tr></tbody></table><form id="w_conf" novalidate style="margin-top:12px">${pwField}</form>`;
+ return bar('New customer','Four quick steps.',`<a class="btn ghost" href="#/customers">Cancel</a>`)+hd+`<div class="card" style="max-width:640px">${b}<p class="err" id="w_err" hidden></p><div class="tools" style="margin-top:16px;justify-content:space-between"><button class="btn ghost" data-a="wback"${W.step===1?' disabled':''}>Back</button><button class="btn pri" data-a="wnext">${W.step===4?'Create customer':'Continue'}</button></div></div>`}
+const wErr=m=>{const e=$('#w_err');if(e){e.textContent=m;e.hidden=!m}};
+function wRead(){const g=id=>{const e=$('#'+id);return e?e.value:null};if(W.step===1){W.u=g('w_u').trim();W.pw=g('w_pw');W.em=g('w_em').trim()}if(W.step===2){W.nm=g('w_nm').trim();W.ph=g('w_ph').trim()}if(W.step===3){W.status=g('w_st');W.bal=g('w_bal');W.reason=g('w_rs').trim()}}
+function wCheck(){if(W.step===1){if(!/^[a-z0-9._-]{3,24}$/i.test(W.u))return 'Username must be 3–24 characters: letters, numbers, dot, dash or underscore.';if(DB.customers.some(c=>c.username.toLowerCase()===W.u.toLowerCase())||ADMINS.length&&false)return 'That username is already taken.';
+  if(W.pw.length<10||!/[a-z]/.test(W.pw)||!/[A-Z]/.test(W.pw)||!/\d/.test(W.pw))return 'Password needs 10+ characters with upper case, lower case and a number.';if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(W.em))return 'Enter a valid email address.'}
+ if(W.step===2){if(W.nm.length<2)return 'Enter the customer’s full name.';if(W.ph&&!/^[+\d][\d\s()-]{5,19}$/.test(W.ph))return 'Enter a valid phone number or leave it empty.'}
+ if(W.step===3){const b=+W.bal||0;if(W.bal!==''&&(isNaN(b)||b<0||b>1e6))return 'Opening balance must be between £0 and £1,000,000.';if(b>0&&W.reason.length<5)return 'Add a reason of at least 5 characters.'}return ''}
+async function wCreate(){const pwv=$('#apw').value;if(!await checkPw(pwv)){wErr('Admin password is incorrect.');return}
+ const c={id:'c'+(DB.seq++),username:W.u,name:W.nm,email:W.em,phone:W.ph,status:W.status,created:new Date().toISOString(),photo:W.photo,cred:await fnewCred(W.u,W.pw),balance:0,expenses:0,savings:0,chg:{bal:0,inc:0,exp:0,sav:0},goals:[{id:'g'+(DB.seq++),n:'My savings vault',saved:0,target:5000}],income:FDB.z12(),spend:FDB.z12(),tx:[]};
+ DB.customers.push(c);log('customer.create','@'+c.username,'Created customer '+c.name+' ('+c.status+')');
+ const b=+W.bal||0;if(b>0){applyAdj(c,'credit',b,W.reason||'Opening balance');}
+ save();const pw=W.pw;W=null;
+ modal('Customer created',`<p>${esc(c.name)} can now sign in with:</p><p class="hint">Username</p><div class="secret">${esc(c.username)}</div><p class="hint" style="margin-top:10px">Temporary password (shown once)</p><div class="secret">${esc(pw)}</div><p class="hint" style="margin-top:10px">Share it securely and ask the customer to change it. It is stored only as a salted hash.</p>`,{submit:'View customer',noActions:false,autoClose:true,onSubmit:async()=>{location.hash='#/customers/'+c.id;return null}});location.hash='#/customers/'+c.id}
+function applyAdj(c,type,amt,reason,extra){const mi=new Date().getMonth();if(type==='credit'){c.balance=+(c.balance+amt).toFixed(2);c.income[mi]=+(c.income[mi]+amt).toFixed(2)}else{c.balance=+(c.balance-amt).toFixed(2);c.spend[mi]=+(c.spend[mi]+amt).toFixed(2);c.expenses=+(c.expenses+amt).toFixed(2)}
+ const t={id:'t'+(DB.seq++),activity:(extra||'Admin adjustment')+': '+reason.slice(0,60),reference:ref('ADJ'),date:today(),type,amount:amt,status:'Success',by:S.u};c.tx.push(t);log('balance.adjust','@'+c.username,(type==='credit'?'+':'−')+gbp(amt)+' · '+t.reference+' · '+reason);return t}
+function vDetail(id,tab){const c=byId(id);if(!c)return bar('Customer not found','')+'<div class="card"><div class="empty"><b>This customer does not exist</b><a href="#/customers">Back to customers</a></div></div>';tab=tab||'overview';
+ const tabs=['overview','transactions','vaults','access','activity'],lab={overview:'Overview',transactions:'Transactions',vaults:'Savings vaults',access:'Access',activity:'Activity log'};
+ let body='';
+ if(tab==='overview')body=`<div class="grid g3">${kpi('Balance',gbp(c.balance),'Fictional GBP')}${kpi('Expenses',gbp(c.expenses),'recorded spending')}${kpi('In vaults',gbp(c.goals.reduce((a,g)=>a+g.saved,0)),c.goals.length+' vault(s)')}</div><div class="card" style="margin-top:16px"><h3>Profile</h3><table style="min-width:0"><tbody><tr><td>Email</td><td>${esc(c.email||'—')}</td></tr><tr><td>Phone</td><td>${esc(c.phone||'—')}</td></tr><tr><td>Username</td><td>@${esc(c.username)}</td></tr><tr><td>Created</td><td>${dtm(c.created)}</td></tr></tbody></table></div>`;
+ if(tab==='transactions')body=`<div class="card">${txTable(c.tx.map(t=>({...t,cid:c.id,cname:c.name,cuser:c.username})),false)}</div>`;
+ if(tab==='vaults')body=vaultCard(c);
+ if(tab==='access')body=`<div class="card"><div class="ch"><h3>Access</h3>${stag(c.status)}</div><p style="color:var(--mut)">${c.status==='active'?'This customer can sign in and use their dashboard.':'This account is blocked. The customer is signed out and cannot sign in or use transfers.'}</p><button class="btn ${c.status==='active'?'danger':'pri'}" data-a="${c.status==='active'?'block':'unblock'}" data-id="${c.id}"${dis()}>${c.status==='active'?'Block account':'Unblock account'}</button></div>`;
+ if(tab==='activity')body=`<div class="card">${auditTable(DB.audit.filter(a=>a.target==='@'+c.username))}</div>`;
+ return `<div class="bar"><div class="cell">${avatar(c,true)}<span><h1>${esc(c.name)}</h1><p>@${esc(c.username)} ${stag(c.status)}</p></span></div><div class="tools"><button class="btn pri" data-a="adjust" data-id="${c.id}"${dis()}>Adjust balance</button><button class="btn ghost" data-a="edit" data-id="${c.id}"${dis()}>Edit details</button><button class="btn ghost" data-a="resetpw" data-id="${c.id}"${dis()}>Reset password</button></div></div><div class="tabs">${tabs.map(t=>`<a href="#/customers/${c.id}/${t}" class="${t===tab?'on':''}">${lab[t]}</a>`).join('')}</div>${body}`}
+function txTable(list,showC=true){list=list.slice().sort((a,b)=>b.date<a.date?-1:b.date>a.date?1:0);if(!list.length)return '<div class="empty"><b>No transactions found</b>Activity will appear here once balances change.</div>';
+ return `<div class="tw"><table><thead><tr><th>Date</th>${showC?'<th>Customer</th>':''}<th>Activity</th><th>Reference</th><th>Status</th><th class="num">Amount</th></tr></thead><tbody>${list.map(t=>`<tr><td>${dday(t.date)}</td>${showC?`<td><a href="#/customers/${t.cid}">${esc(t.cname)}</a></td>`:''}<td>${esc(t.activity)}</td><td>${esc(t.reference||'—')}</td><td>${ttag(t.status)}</td><td class="num ${t.type==='credit'?'plus':'minus'}">${t.type==='credit'?'+':'−'}${gbp(t.amount)}</td></tr>`).join('')}</tbody></table></div>`}
+let TF={q:'',t:'all',s:'all',from:'',to:''};
+function filteredTx(){const q=TF.q.toLowerCase();return allTx().filter(t=>(TF.t==='all'||t.type===TF.t)&&(TF.s==='all'||t.status===TF.s)&&(!TF.from||t.date>=TF.from)&&(!TF.to||t.date<=TF.to)&&(!q||(t.activity+' '+t.reference+' '+t.cname+' '+t.cuser+' '+t.amount).toLowerCase().includes(q)))}
+function vTx(){return bar('Transactions','Search transfers, references, amounts, dates and processing statuses.',`<button class="btn ghost" data-a="exptx">${ic('dl')}Export CSV</button>`)+`<div class="card"><div class="tools" style="margin-bottom:14px"><input class="in grow" id="tq" type="search" placeholder="Search reference, activity, customer or amount" value="${esc(TF.q)}"><select class="in" id="tt"><option value="all">All types</option><option value="credit"${TF.t==='credit'?' selected':''}>Credits</option><option value="debit"${TF.t==='debit'?' selected':''}>Debits</option></select><select class="in" id="ts"><option value="all">All statuses</option>${['Success','Pending','Failed'].map(s=>`<option${TF.s===s?' selected':''}>${s}</option>`).join('')}</select><input class="in" id="tf" type="date" value="${TF.from}" aria-label="From date"><input class="in" id="tto" type="date" value="${TF.to}" aria-label="To date"></div><div id="ttab">${txTable(filteredTx())}</div></div>`}
+function vaultCard(c){return `<div class="card"><div class="ch"><h3>${esc(c.name)} · vaults</h3><button class="btn sm pri" data-a="newvault" data-id="${c.id}"${dis()}>New vault</button></div>${c.goals.length?`<div class="tw"><table><thead><tr><th>Vault</th><th class="num">Saved</th><th class="num">Target</th><th>Progress</th><th></th></tr></thead><tbody>${c.goals.map(g=>{const p=g.target>0?Math.min(100,Math.round(g.saved/g.target*100)):0;return `<tr><td>${esc(g.n)}</td><td class="num">${gbp(g.saved)}</td><td class="num">${gbp(g.target)}</td><td style="min-width:120px"><div class="brow" style="grid-template-columns:1fr 38px"><div class="tr"><i style="width:${p}%"></i></div><span>${p}%</span></div></td><td class="num"><button class="btn sm ghost" data-a="vdep" data-id="${c.id}" data-g="${g.id}"${dis()}>Deposit</button> <button class="btn sm ghost" data-a="vwd" data-id="${c.id}" data-g="${g.id}"${dis()}>Withdraw</button></td></tr>`}).join('')}</tbody></table></div>`:'<div class="empty"><b>No vaults yet</b></div>'}</div>`}
+function vVaults(){const tot=DB.customers.reduce((a,c)=>a+c.goals.reduce((x,g)=>x+g.saved,0),0);return bar('Savings vaults','View savings goals, vault balances, deposits and withdrawals.')+`<div class="grid g3" style="margin-bottom:16px">${kpi('Total in vaults',gbp(tot),'across all customers')}${kpi('Vaults',DB.customers.reduce((a,c)=>a+c.goals.length,0),'savings goals')}${kpi('Customers with vaults',DB.customers.filter(c=>c.goals.some(g=>g.saved>0)).length,'with a balance')}</div><div class="grid">${DB.customers.map(vaultCard).join('')}</div>`}
+function vAccess(){const bl=DB.customers.filter(c=>c.status==='blocked').length;return bar('Access control','Block or unblock accounts. Blocked users lose sessions and transfer access.')+`<div class="grid g3" style="margin-bottom:16px">${kpi('Active',DB.customers.length-bl)}${kpi('Blocked',bl)}${kpi('Session policy','Immediate','blocked users are signed out')}</div><div class="card"><div class="tw"><table><thead><tr><th>Customer</th><th>Status</th><th>Last change</th><th></th></tr></thead><tbody>${DB.customers.map(c=>{const l=DB.audit.find(a=>a.target==='@'+c.username&&/^access\./.test(a.action));return `<tr><td><div class="cell">${avatar(c)}<span><b>${esc(c.name)}</b><small>@${esc(c.username)}</small></span></div></td><td>${stag(c.status)}</td><td>${l?dtm(l.ts)+' · '+esc(l.actor):'—'}</td><td class="num"><button class="btn sm ${c.status==='active'?'danger':'pri'}" data-a="${c.status==='active'?'block':'unblock'}" data-id="${c.id}"${dis()}>${c.status==='active'?'Block':'Unblock'}</button></td></tr>`}).join('')}</tbody></table></div></div>`}
+function vSecurity(){const rows=[['View customers, transactions, vaults, reports',1,1],['Create and edit customers',1,0],['Upload or change customer photos',1,0],['Adjust balances and vault deposits / withdrawals',1,0],['Block or unblock accounts',1,0],['Reset customer passwords',1,0],['Export CSV reports',1,1]];
+ return bar('Security & roles','Separate admin login, role permissions and extra checks for sensitive actions.')+`<div class="grid g2"><div class="card"><h3>Role permissions</h3><div class="tw"><table class="matrix" style="min-width:0"><thead><tr><th>Action</th><th>Super admin</th><th>Support</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r[0]}</td><td class="${r[1]?'yes':'no'}">${r[1]?'✓':'—'}</td><td class="${r[2]?'yes':'no'}">${r[2]?'✓':'—'}</td></tr>`).join('')}</tbody></table></div></div>
+ <div class="card"><h3>Your session</h3><table style="min-width:0"><tbody><tr><td>Signed in as</td><td>@${esc(S.u)}</td></tr><tr><td>Role</td><td>${roleLabel(S.role)}</td></tr><tr><td>Signed in</td><td>${dtm(new Date(S.t).toISOString())}</td></tr><tr><td>Inactivity sign-out</td><td>15 minutes</td></tr></tbody></table></div></div>
+ <div class="card" style="margin-top:16px"><h3>Safeguards</h3><div class="tw"><table style="min-width:0"><tbody>${[['Separate admin login (not the customer login)','In this prototype'],['Role permissions','In this prototype'],['Admin password re-check for sensitive actions','In this prototype'],['Every change written to the audit log','In this prototype'],['Server-side authorization, validation and audit logs','Required before going live'],['Real database, hashed passwords server-side, revoked sessions','Required before going live']].map(r=>`<tr><td>${r[0]}</td><td><span class="tag ${/Required/.test(r[1])?'warn':'ok'}">${r[1]}</span></td></tr>`).join('')}</tbody></table></div></div>`}
+function auditTable(list){if(!list.length)return '<div class="empty"><b>No activity yet</b>Admin changes will be recorded here.</div>';return `<div class="tw"><table><thead><tr><th>When</th><th>Who</th><th>Action</th><th>Target</th><th>Detail</th></tr></thead><tbody>${list.map(a=>`<tr><td>${dtm(a.ts)}</td><td>@${esc(a.actor)}</td><td><span class="tag">${esc(a.action)}</span></td><td>${esc(a.target)}</td><td>${esc(a.detail)}</td></tr>`).join('')}</tbody></table></div>`}
+let AF={q:'',a:'all'};
+function vAudit(){const tx=allTx(),by={};tx.forEach(t=>{const m=new Date(t.date+'T00:00:00').getMonth();by[m]=(by[m]||0)+1});const mx=Math.max(1,...Object.values(by));
+ const act=DB.customers.filter(c=>c.status==='active').length,tot=DB.customers.length||1,pct=Math.round(act/tot*360);const maxB=Math.max(1,...DB.customers.map(c=>c.balance));
+ const list=DB.audit.filter(a=>(AF.a==='all'||a.action.split('.')[0]===AF.a)&&(!AF.q||(a.actor+' '+a.action+' '+a.target+' '+a.detail).toLowerCase().includes(AF.q.toLowerCase())));
+ return bar('Audit & reports','Track who changed what and when; review activity and account trends.',`<button class="btn ghost" data-a="expaudit">${ic('dl')}Export audit log</button>`)+
+ `<div class="grid g3"><div class="card"><h3>Transactions per month</h3><div class="cols">${MON.map((m,i)=>`<div><em>${by[i]||''}</em><i style="height:${(by[i]||0)/mx*100}%"></i><span>${m}</span></div>`).join('')}</div><div style="height:22px"></div></div>
+ <div class="card"><h3>Account status</h3><div class="cell"><div class="donut" style="background:conic-gradient(var(--ok) ${pct}deg,var(--bad) 0)"><b>${DB.customers.length}</b></div><span><span class="tag ok">${act} active</span><br><span class="tag bad" style="margin-top:6px">${DB.customers.length-act} blocked</span></span></div></div>
+ <div class="card"><h3>Balance by customer</h3><div class="bars">${DB.customers.slice(0,6).map(c=>`<div class="brow"><span>${esc(c.name.split(' ')[0])}</span><div class="tr"><i style="width:${c.balance/maxB*100}%"></i></div><span class="num">${gbp(c.balance)}</span></div>`).join('')}</div></div></div>
+ <div class="card" style="margin-top:16px"><div class="tools" style="margin-bottom:14px"><input class="in grow" id="aq" type="search" placeholder="Search the audit log" value="${esc(AF.q)}"><select class="in" id="aa"><option value="all">All actions</option>${['customer','balance','access','vault','password'].map(a=>`<option${AF.a===a?' selected':''}>${a}</option>`).join('')}</select></div><div id="atab">${auditTable(list)}</div></div>`}
+const VIEWS={overview:vOverview,customers:vCustomers,transactions:vTx,vaults:vVaults,access:vAccess,security:vSecurity,audit:vAudit};
+function route(){if(!S)return;const p=(location.hash||'#/overview').replace(/^#\/?/,'').split('/');let r=p[0]||'overview',h='';
+ if(r==='customers'&&p[1]==='new')h=vNew();else if(r==='customers'&&p[1])h=vDetail(p[1],p[2]);else h=(VIEWS[r]||vOverview)();
+ if(!(r==='customers'&&p[1]==='new'))W=null;
+ $('#view').innerHTML=h;$('#view').className='view';$$('.nv[data-r]').forEach(n=>n.classList.toggle('on',n.dataset.r===(VIEWS[r]?r:'overview')));$('#side').classList.remove('open');const o=$('.sbg2');if(o)o.remove();window.scrollTo(0,0)}
+/* ---- actions ---- */
+function sensitive(title,body,submit,run,opt={}){modal(title,body+pwField,{submit,danger:opt.danger,onSubmit:async(v,close,m)=>{if(!await checkPw(v.apw))return 'Admin password is incorrect.';return run(v,close,m)}})}
+document.addEventListener('click',e=>{const row=e.target.closest('[data-go]');if(row&&!e.target.closest('a,button')){location.hash=row.dataset.go;return}
+ const a=e.target.closest('[data-a]');if(!a)return;const id=a.dataset.id,c=id&&byId(id),act=a.dataset.a;
+ if(act==='newcust'){if(need()){W=null;location.hash='#/customers/new'}}
+ else if(act==='genpw'){W.pw=genPw();const i=$('#w_pw');if(i)i.value=W.pw}
+ else if(act==='pickphoto'){$('#w_f').click()}
+ else if(act==='rmphoto'){wRead();W.photo='';route()}
+ else if(act==='wback'){wRead();W.step=Math.max(1,W.step-1);route()}
+ else if(act==='wnext'){if(!need())return;wRead();if(W.step<4){const m=wCheck();if(m){wErr(m);return}W.step++;route()}else wCreate()}
+ else if(act==='adjust'&&need())sensitive('Adjust balance',`<div class="f2"><div class="f"><label class="lb" for="a_t">Type</label><select class="in" id="a_t" name="type"><option value="credit">Credit (add)</option><option value="debit">Debit (remove)</option></select></div><div class="f"><label class="lb" for="a_m">Amount (£)</label><input class="in" id="a_m" name="amt" type="number" min="0.01" step="0.01"></div></div><div class="f"><label class="lb" for="a_r">Reason (recorded with the transaction)</label><input class="in" id="a_r" name="reason"></div><p class="hint">Current balance ${gbp(c.balance)}. Simulated GBP only.</p>`,'Apply',(v)=>{const amt=+v.amt;if(!(amt>0)||amt>1e6)return 'Enter an amount between £0.01 and £1,000,000.';if((v.reason||'').trim().length<5)return 'Add a reason of at least 5 characters.';if(v.type==='debit'&&amt>c.balance)return 'The debit is more than the current balance.';applyAdj(c,v.type,amt,v.reason.trim());save();route();toast('Balance updated and recorded.');return null})
+ else if((act==='block'||act==='unblock')&&need())sensitive(act==='block'?'Block account':'Unblock account',`<p>${act==='block'?'The customer will be signed out and lose transfer access.':'The customer will be able to sign in again.'}</p><div class="f"><label class="lb" for="b_r">Reason</label><input class="in" id="b_r" name="reason"></div>`,act==='block'?'Block account':'Unblock account',v=>{if((v.reason||'').trim().length<5)return 'Add a reason of at least 5 characters.';c.status=act==='block'?'blocked':'active';log('access.'+act,'@'+c.username,v.reason.trim());route();toast(act==='block'?'Account blocked.':'Account unblocked.');return null},{danger:act==='block'})
+ else if(act==='resetpw'&&need())sensitive('Reset password',`<p>A new temporary password will be generated for ${esc(c.name)}.</p>`,'Reset password',async(v,close)=>{const pw=genPw();c.cred=await fnewCred(c.username,pw);log('password.reset','@'+c.username,'Temporary password reset');close();modal('New temporary password',`<p class="hint">Shown once. Share it securely.</p><div class="secret">${esc(pw)}</div>`,{submit:'Done',onSubmit:async()=>null});return null})
+ else if(act==='edit'&&need()){let photo=c.photo;const mo=modal('Edit details',`<div class="cell" style="margin-bottom:14px"><span id="ep">${avatar({photo,name:c.name},true)}</span><span><button type="button" class="btn ghost sm" id="eph">Change photo</button><input type="file" id="epf" accept="image/*" hidden></span></div><div class="f"><label class="lb" for="e_n">Full name</label><input class="in" id="e_n" name="name" value="${esc(c.name)}"></div><div class="f"><label class="lb" for="e_e">Email</label><input class="in" id="e_e" name="email" value="${esc(c.email)}"></div><div class="f"><label class="lb" for="e_p">Phone</label><input class="in" id="e_p" name="phone" value="${esc(c.phone)}"></div>`,{onSubmit:v=>{if(v.name.trim().length<2)return 'Enter a full name.';if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email.trim()))return 'Enter a valid email address.';c.name=v.name.trim();c.email=v.email.trim();c.phone=v.phone.trim();c.photo=photo;log('customer.update','@'+c.username,'Updated profile details'+(photo!==byId(id).photo?'':''));route();toast('Details saved.');return null}});
+  $('#eph',mo.m).onclick=()=>$('#epf',mo.m).click();$('#epf',mo.m).onchange=function(){if(this.files[0])cropper(this.files[0],d=>{photo=d;$('#ep',mo.m).innerHTML=avatar({photo,name:c.name},true)})}}
+ else if(act==='newvault'&&need())modal('New savings vault',`<div class="f"><label class="lb" for="v_n">Vault name</label><input class="in" id="v_n" name="n"></div><div class="f"><label class="lb" for="v_t">Target (£)</label><input class="in" id="v_t" name="t" type="number" min="1" step="0.01"></div>`,{onSubmit:v=>{if(v.n.trim().length<2||!(+v.t>0))return 'Enter a name and a target above £0.';c.goals.push({id:'g'+(DB.seq++),n:v.n.trim(),saved:0,target:+(+v.t).toFixed(2)});log('vault.create','@'+c.username,'Created vault '+v.n.trim());route();toast('Vault created.');return null}})
+ else if((act==='vdep'||act==='vwd')&&need()){const g=c.goals.find(x=>x.id===a.dataset.g),dep=act==='vdep';sensitive(dep?'Deposit to vault':'Withdraw from vault',`<p>${esc(g.n)} · saved ${gbp(g.saved)}. Account balance ${gbp(c.balance)}.</p><div class="f"><label class="lb" for="d_m">Amount (£)</label><input class="in" id="d_m" name="amt" type="number" min="0.01" step="0.01"></div>`,dep?'Deposit':'Withdraw',v=>{const amt=+v.amt;if(!(amt>0))return 'Enter an amount above £0.';if(dep&&amt>c.balance)return 'Not enough balance in the account.';if(!dep&&amt>g.saved)return 'Not enough saved in this vault.';
+  g.saved=+(g.saved+(dep?amt:-amt)).toFixed(2);c.savings=+(c.goals.reduce((x,y)=>x+y.saved,0)).toFixed(2);c.balance=+(c.balance+(dep?-amt:amt)).toFixed(2);c.tx.push({id:'t'+(DB.seq++),activity:(dep?'Deposit to vault: ':'Withdrawal from vault: ')+g.n,reference:ref('VLT'),date:today(),type:dep?'debit':'credit',amount:amt,status:'Success',by:S.u});log('vault.'+(dep?'deposit':'withdraw'),'@'+c.username,(dep?'+':'−')+gbp(amt)+' · '+g.n);route();toast(dep?'Deposited to vault.':'Withdrawn from vault.');return null})}
+ else if(act==='exptx')csv([['Date','Customer','Username','Activity','Reference','Type','Amount GBP','Status']].concat(filteredTx().map(t=>[t.date,t.cname,t.cuser,t.activity,t.reference||'',t.type,t.amount.toFixed(2),t.status])),'fion-transactions.csv')
+ else if(act==='expaudit')csv([['Time','Actor','Role','Action','Target','Detail']].concat(DB.audit.map(x=>[x.ts,x.actor,x.role,x.action,x.target,x.detail])),'fion-audit-log.csv')});
+document.addEventListener('input',e=>{const t=e.target;
+ if(t.id==='cq'||t.id==='cs'){CF.q=$('#cq').value;CF.s=$('#cs').value;const l=DB.customers.filter(c=>(CF.s==='all'||c.status===CF.s)&&(!CF.q||(c.name+' '+c.username+' '+c.email+' '+c.phone).toLowerCase().includes(CF.q.toLowerCase())));$('#ctab').innerHTML=custTable(l)}
+ if(['tq','tt','ts','tf','tto'].includes(t.id)){TF={q:$('#tq').value,t:$('#tt').value,s:$('#ts').value,from:$('#tf').value,to:$('#tto').value};$('#ttab').innerHTML=txTable(filteredTx())}
+ if(t.id==='aq'||t.id==='aa'){AF={q:$('#aq').value,a:$('#aa').value};const l=DB.audit.filter(a=>(AF.a==='all'||a.action.split('.')[0]===AF.a)&&(!AF.q||(a.actor+' '+a.action+' '+a.target+' '+a.detail).toLowerCase().includes(AF.q.toLowerCase())));$('#atab').innerHTML=auditTable(l)}});
+document.addEventListener('change',e=>{const f=e.target;if(f.id==='w_f'&&f.files[0]&&W){wRead();const file=f.files[0];f.value='';cropper(file,d=>{W.photo=d;route()})}});
+window.addEventListener('hashchange',route);
+window.addEventListener('storage',e=>{if(e.key===FDB.KEY&&S){DB=FDB.load();route()}});
+/* ---- start ---- */
+function logout(msg){clearInterval(idleT);S=null;loginRedirect(msg)}
+function touch(){if(S)S.last=Date.now()}['click','keydown','pointerdown'].forEach(ev=>document.addEventListener(ev,touch,{passive:true}));
+function start(sess){S=sess;S.last=Date.now();DB=FDB.load();$('#gate').hidden=true;$('#app').hidden=false;
+ $('#nav').innerHTML=NAV.map(n=>`<a class="nv" data-r="${n[0]}" href="#/${n[0]}">${ic(n[2])}${n[1]}</a>`).join('');
+ $('#who').innerHTML=`<b>@${esc(S.u)}</b>${roleLabel(S.role)}`;$('#ro').hidden=can();
+ idleT=setInterval(()=>{if(S&&Date.now()-S.last>IDLE)logout('You were signed out after 15 minutes of inactivity.')},20000);route()}
+$('#out').onclick=()=>logout();
+$('#burger').onclick=()=>{$('#side').classList.add('open');const o=document.createElement('div');o.className='sbg2';o.onclick=()=>{$('#side').classList.remove('open');o.remove()};document.body.appendChild(o)};
+$$('i[data-i]').forEach(e=>e.outerHTML=ic(e.dataset.i));
+let sv=null;try{sv=JSON.parse(sget()||'null')}catch(e){}
+if(sv&&sv.u&&ADMINS[sv.idx]&&ADMINS[sv.idx].role===sv.role)start(sv);else loginRedirect();
+})();
+</script>
+</body>
+</html>
